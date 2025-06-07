@@ -3,32 +3,31 @@ version: "3.8"
 services:
   backend:
     build:
-      context: ./backend
-    container_name: laravel-backend
+      context: ./FitChallenge
+    container_name: laravel-FitChallenge
     volumes:
-      - ./backend:/var/www
+      - ./FitChallenge:/var/www
     ports:
       - "8000:9000"
     depends_on:
       - mysql
-    environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_DATABASE: FitChallenge
-      DB_USERNAME: root
-      DB_PASSWORD: Thibault0709
+    working_dir: /var/www
+    command: bash -c "composer install && npm install && npm run build && php artisan serve --host=0.0.0.0 --port=9000"
 
-  frontend:
+  vite:
     build:
-      context: ./frontend
-    container_name: vue-frontend
+      context: ./FitChallenge
+    container_name: vite
+    working_dir: /var/www
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./FitChallenge:/var/www
+      - /var/www/node_modules
+    command: npm run dev -- --host
     ports:
       - "5173:5173"
-    working_dir: /app
-    command: npm run dev
+    depends_on:
+      - backend
+
 
   mysql:
     image: mysql:8
