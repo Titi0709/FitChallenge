@@ -67,4 +67,13 @@ class Utilisateur extends Authenticatable
     {
         return $this->hasMany(Achat::class, 'id_utilisateur');
     }
+    public function defisCrees()
+{
+    return $this->hasMany(Defi::class, 'id_utilisateur');
+}
+    public function programmesCrees()
+    {
+        return $this->hasMany(Programme::class, 'id_utilisateur');
+    }
+
 }

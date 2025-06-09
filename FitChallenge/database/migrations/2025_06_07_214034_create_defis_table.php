@@ -22,6 +22,10 @@ return new class extends Migration
             $table->dateTime('date_creation');
             $table->integer('prix');
             $table->timestamps();
+
+            $table->unsignedBigInteger('id_utilisateur');
+            $table->foreign('id_utilisateur')->references('id_utilisateur')->on('utilisateur')->onDelete('cascade');
+
         });
     }
 
