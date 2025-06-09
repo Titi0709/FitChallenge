@@ -19,6 +19,7 @@ class Defi extends Model
         'image',
         'date_creation',
         'prix',
+        'id_utilisateur'
     ];
 
     public function participations()
@@ -30,4 +31,9 @@ class Defi extends Model
     {
         return $this->hasOne(VideoDefi::class, 'id_defi');
     }
+    public function utilisateur()
+    {
+    return $this->belongsTo(Utilisateur::class, 'id_utilisateur');
+    }
+
 }
