@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nom', 50);
             $table->string('prenom', 50);
             $table->string('email', 50)->unique();
-            $table->string('mot_de_passe', 50);
-            $table->string('role', 10); // valeur par défaut
+            $table->string('mot_de_passe', 255);
+            $table->string('role', 20);
             $table->dateTime('date_inscription');
             $table->timestamps(); // created_at / updated_at
         });

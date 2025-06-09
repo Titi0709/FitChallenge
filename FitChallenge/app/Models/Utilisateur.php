@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable; // au lieu de Model
+use Illuminate\Notifications\Notifiable;
 
-class Utilisateur extends Model
+class Utilisateur extends Authenticatable
 {
+    use Notifiable;
+
     protected $table = 'utilisateur';
     protected $primaryKey = 'id_utilisateur';
     public $timestamps = true;
@@ -20,11 +23,22 @@ class Utilisateur extends Model
     ];
 
     protected $attributes = [
-    'role' => 'utilisateur',
+        'role' => 'utilisateur',
     ];
 
-    
- public function messagesEnvoyes()
+    protected $hidden = [
+        'mot_de_passe',
+        'remember_token',
+    ];
+
+    // 👇 C’est ici qu’on précise à Laravel où est le mot de passe
+    public function getAuthPassword()
+    {
+        return $this->mot_de_passe;
+    }
+
+    // relations
+    public function messagesEnvoyes()
     {
         return $this->hasMany(Message::class, 'id_utilisateur_envoyeur');
     }
