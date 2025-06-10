@@ -1,16 +1,12 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3';
 
 const props = defineProps({
   defis: Array,
   programmes: Array,
   challenges: Array,
+   user: Object,
 });
 
-
-
-const user = usePage().props.auth?.user;
-const userPrenom = user ? user.prenom : 'Champion';
 </script>
 
 <template>
@@ -26,7 +22,7 @@ const userPrenom = user ? user.prenom : 'Champion';
 
       <div class="hero-text d-flex flex-column justify-center align-center text-center px-4">
         <h1 class="hero-title">
-          Bienvenue, {{ userPrenom }}
+         Bienvenue, {{ props.user?.prenom ?? 'Champion' }}
         </h1>
         <p class="hero-subtitle">
           Prêt à relever un nouveau défi sportif aujourd'hui ?

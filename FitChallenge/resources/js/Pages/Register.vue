@@ -59,6 +59,7 @@ function submit() {
                                 </div>
                                 <div class="text-body-2 mb-6" style="color: #888">
                                     T'as la motive ? On a le challenge !
+                                    
                                 </div>
                             </v-col>
 

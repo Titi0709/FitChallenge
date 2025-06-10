@@ -1,5 +1,9 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link,router } from '@inertiajs/vue3';
+
+function logout() {
+  router.post('/logout');
+}
 </script>
 
 <template>
@@ -30,6 +34,15 @@ import { Link } from '@inertiajs/vue3';
       <Link href="/programmes" class="nav-link ml-16">Programmes</Link>
       <Link href="/messagerie" class="nav-link ml-16">messagerie</Link>
       <Link href="/porgression"><v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;" >progression</v-btn></Link>
+<v-btn
+  icon
+  class="ml-4"
+  style="background: #c62e43; color: #fff;"
+  @click="logout"
+  title="Déconnexion"
+>
+  <v-icon>mdi-logout</v-icon>
+</v-btn>
     </v-row>
 
 

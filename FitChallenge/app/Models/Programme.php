@@ -10,7 +10,7 @@ class Programme extends Model
     protected $primaryKey = 'id_programme';
 
     protected $fillable = [
-        'titre', 'description', 'type_exercice', 'objectif', 'duree', 'image', 'date_creation', 'prix','id_utilisateur',
+        'titre', 'description', 'type_exercice', 'objectif', 'duree', 'image', 'date_creation', 'prix','id_utilisateur','statut',
     ];
 
     public function videos()

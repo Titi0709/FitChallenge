@@ -9,7 +9,7 @@
       src="/images/LogoFitChallenge.png"
       alt="Logo"
       height="60"
-      class="ml-n8 mr-n15"
+      class="ml-n16 mr-n16"
       contain
     />
 
