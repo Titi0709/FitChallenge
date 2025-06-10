@@ -19,7 +19,8 @@ class Defi extends Model
         'image',
         'date_creation',
         'prix',
-        'id_utilisateur'
+        'id_utilisateur',
+        'statut',
     ];
 
     public function participations()

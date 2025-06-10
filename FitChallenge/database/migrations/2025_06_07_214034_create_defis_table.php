@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image', 500);
             $table->dateTime('date_creation');
             $table->integer('prix');
+            $table->string('statut', 10);
             $table->timestamps();
 
             $table->unsignedBigInteger('id_utilisateur');

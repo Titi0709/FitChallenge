@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Utilisateur;
 use Inertia\Inertia;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller 
 
@@ -25,26 +27,9 @@ public function showRegister()
 }
 
 
-public function login(Request $request)
+public function login(LoginRequest $request)
 {
-    $credentials = $request->validate([
-        'email' => [
-            'required',
-            'email',
-            'max:100',
-            'regex:/^[^\'";\\\s<>]+@[^\'";\\\s<>]+\.[a-zA-Z]{2,}$/',
-        ],
-        'mot_de_passe' => [
-            'required',
-            'string',
-            'min:6',
-            'max:50',
-            'regex:/^[^\'";\\<>]+$/',
-        ],
-    ], [
-        'email.regex' => 'Le format de l\'email est invalide.',
-        'mot_de_passe.regex' => 'Le mot de passe contient des caractères interdits.',
-    ]);
+    $credentials = $request->validated();
 
     $user = Utilisateur::where('email', $credentials['email'])->first();
 
@@ -60,29 +45,9 @@ public function login(Request $request)
 
 
 
-public function register(Request $request)
+public function register(RegisterRequest $request)
 {
-    $validated = $request->validate([
-        'nom' => [
-            'required',
-            'string',
-            'max:50',
-            'regex:/^[a-zA-ZÀ-ÿ\s]+$/u', // lettres + espaces uniquement
-        ],
-        'prenom' => [
-            'required',
-            'string',
-            'max:50',
-            'regex:/^[a-zA-ZÀ-ÿ\s]+$/u', // lettres + espaces uniquement
-        ],
-        'email' => [
-            'required',
-            'email',
-            'max:50',
-            'unique:utilisateur,email',
-        ],
-        'mot_de_passe' => ['required', 'min:6', 'confirmed'],
-    ]);
+    $validated = $request->validated();
 
     $user = Utilisateur::create([
         'nom' => $validated['nom'],
@@ -99,7 +64,6 @@ public function register(Request $request)
 }
 
 
-// Déconnexion
 public function logout(Request $request)
 {
     Auth::logout();
