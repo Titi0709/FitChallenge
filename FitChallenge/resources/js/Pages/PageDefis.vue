@@ -1,5 +1,9 @@
 <script setup>
+import { ref } from "vue";
 import { useForm } from '@inertiajs/vue3'
+
+const snackbar = ref(false)
+const snackbarMessage = ref('')
 
 const form = useForm({
   titre: '',
@@ -11,9 +15,23 @@ const form = useForm({
   video: null,
 })
 
+function resetForm() {
+  
+  form.reset() 
+  form.clearErrors() 
+  form.image = null
+  form.video = null
+}
+
 function submit() {
   form.post('/defis-creation', {
+
     forceFormData: true,
+    onSuccess: () => {
+      snackbarMessage.value = 'Votre défi est en cours d’analyse et sera disponible dans les plus brefs délais.'
+      snackbar.value = true
+      resetForm()
+    },
   })
 }
 </script>
@@ -127,16 +145,20 @@ function submit() {
             </div>
             <div style="color: #c62e43;">
               &#9888; Toute vidéo ou défi inapproprié pourra être supprimé par l’équipe de modération.
-              <v-spacer></v-spacer>
-              <pre>
-              {{ form }}
-              </pre>
             </div>
           </div>
         </v-col>
       </v-row>
     </v-container>
   </div>
+  <v-snackbar
+  v-model="snackbar"
+  :timeout="6000"
+  class="elevation-24"
+  color="deep-orange-accent-2">
+  {{ snackbarMessage }}
+</v-snackbar>
+
 </template>
 
 <style scoped>

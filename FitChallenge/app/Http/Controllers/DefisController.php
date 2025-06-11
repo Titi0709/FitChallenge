@@ -65,7 +65,10 @@ class DefisController extends Controller
             ]);
 
 
+            
 
-        return redirect()->back()->with('success', 'Défi en cours de validation');
+         return back();
+
+
     }
 }

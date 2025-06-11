@@ -15,5 +15,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('/defis', [DefisController::class, 'index'])->name('defis.index');
+
+
+
+Route::middleware(['auth'])->group(function () {
+
 Route::get('/PageDefis', [DefisController::class, 'PageDefis'])->name('page.defis');
 Route::post('/defis-creation', [DefisController::class, 'defiscreation'])->name('defis.creation');
+
+});
