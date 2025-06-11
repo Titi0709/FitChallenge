@@ -30,13 +30,20 @@ class DefisController extends Controller
     public function defiscreation(StoreDefiRequest $request)
     {   
         $validated = $request->validated();
-        
+
         $userId = Auth::id();
 
         if (!$userId) {
             return redirect()->back()->withErrors(['error' => 'Vous devez être connecté pour créer un défi.']);
         }
-        
+          
+        $imagePath = null;
+
+        $image = $request->file('image');
+        $imagePath = $image->store('images', 'public');
+
+        $validated['image'] = $imagePath;
+
         $defi = Defi::create([
             ...$validated,
             'date_creation' => now(),

@@ -13,7 +13,8 @@ class AccueilController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $defis = Defi::latest()->take(5)->get();
+        
+        $defis = Defi::where('statut', 'validé')->latest()->take(5)->get();
         $programmes = Programme::latest()->take(5)->get();
         $challenges = ParticipationDefi::with('defi') // si besoin du nom du défi
                             ->latest()
