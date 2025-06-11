@@ -1,4 +1,6 @@
 <script setup>
+import { usePage } from '@inertiajs/vue3'
+import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({
   defis: Array,
@@ -38,62 +40,111 @@ const props = defineProps({
 
 
 
-    <!-- Derniers défis -->
+ <!-- Derniers défis (Carrousel) -->
     <section class="mb-10">
-      <h2 class="text-h5 font-weight-bold mb-4">Derniers défis</h2>
-      <v-slide-group>
-        <v-slide-item
+      <h2 class="accueil-section-title text-center mb-4 custom-h2">Les défis !</h2>
+      <Link href="/defis" class="voir-plus-btn-page">
+      Voir plus
+      <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+    </Link>
+      <div v-if="defis.length" class="carousel-wrapper">
+      <v-carousel
+        hide-delimiter-background
+        height="300"
+        show-arrows
+        cycle
+      >
+        <v-carousel-item
           v-for="defi in defis"
           :key="defi.id_defi"
         >
-          <v-card class="ma-2" max-width="300">
-            <v-img :src="defi.image" height="150px" cover />
-            <v-card-title>{{ defi.titre }}</v-card-title>
-            <v-card-subtitle>{{ defi.type_exercice }}</v-card-subtitle>
-          </v-card>
-        </v-slide-item>
-      </v-slide-group>
+          <v-img :src="`/storage/${defi.image}`" height="300px" cover>
+            <div class="carousel-caption">
+              <div class="carousel-title">{{ defi.titre }}</div>
+              <Link :href="`/defis/${defi.id_defi}`" class="voir-plus-btn">
+              Voir le défi
+              <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+            </Link>
+            </div>
+          </v-img>
+        </v-carousel-item>
+      </v-carousel>
+      </div>
+      <div v-else class="aucun-message">Aucun défi n'est présent.</div>
     </section>
 
-    <!-- Derniers programmes -->
+    <!-- Derniers programmes (Carrousel) -->
     <section class="mb-10">
-      <h2 class="text-h5 font-weight-bold mb-4">Nouveaux programmes</h2>
-      <v-row>
-        <v-col
+      <h2 class="accueil-section-title text-center mb-4 custom-h2" >Les programmes !</h2>
+      <Link href="/programmes" class="voir-plus-btn-page">
+      Voir plus
+      <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+    </Link>
+      <div v-if="programmes.length" class="carousel-wrapper">
+      <v-carousel
+        hide-delimiter-background
+        height="300"
+        show-arrows
+        cycle
+      >
+        <v-carousel-item
           v-for="programme in programmes"
           :key="programme.id_programme"
-          cols="12"
-          sm="6"
-          md="4"
         >
-          <v-card>
-            <v-img :src="programme.image" height="160px" cover />
-            <v-card-title>{{ programme.titre }}</v-card-title>
-            <v-card-subtitle>{{ programme.type_exercice }}</v-card-subtitle>
-          </v-card>
-        </v-col>
-      </v-row>
+          <v-img :src="programme.image" height="300px" cover>
+            <div class="carousel-caption">
+              <div class="carousel-title">{{ programme.titre }}</div>
+              <Link :href="`/programmes/${programme.id_programme}`" class="voir-plus-btn">
+              Voir le programme
+              <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+            </Link>
+            </div>
+          </v-img>
+        </v-carousel-item>
+      </v-carousel>
+      </div>
+      <div v-else class="aucun-message">Aucun programme n'est présent.</div>
+      
     </section>
 
-    <!-- Derniers challenges rejoints -->
+    <!-- Derniers challenges (Carrousel) -->
     <section>
-      <h2 class="text-h5 font-weight-bold mb-4">Challenges récents</h2>
-      <v-list>
-        <v-list-item
+      <h2 class="accueil-section-title text-center mb-4 custom-h2">Mes Challenges !</h2>
+      <Link href="/progression" class="voir-plus-btn-page">
+      Voir plus
+      <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+    </Link>
+       <div v-if="challenges.length" class="carousel-wrapper">
+      <v-carousel
+        hide-delimiter-background
+        height="300"
+        show-arrows
+        cycle
+      >
+        <v-carousel-item
           v-for="challenge in challenges"
           :key="challenge.id_participation"
         >
-          <v-list-item-title>
-            Participation au défi : {{ challenge.defi?.titre }}
-          </v-list-item-title>
-          <v-list-item-subtitle>{{ challenge.date_debut }}</v-list-item-subtitle>
-        </v-list-item>
-      </v-list>
+          <v-img :src="`/storage/${challenge.defi?.image}`" height="300px" cover>
+            <div class="carousel-caption">
+              <div class="carousel-title">{{ challenge.defi?.titre }}</div>
+              <Link href="/progression" class="voir-plus-btn">
+              Voir le challenge
+              <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+            </Link>
+            </div>
+          </v-img>
+        </v-carousel-item>
+      </v-carousel>
+      </div>
+      <div v-else class="aucun-message">Aucun challenge n'est présent.</div>
     </section>
   </v-container>
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap');
+
 .hero-banner {
   position: relative;
   height: 400px;
@@ -124,7 +175,7 @@ const props = defineProps({
 
 .hero-subtitle {
   font-size: 2rem;
-  margin-left: 150px;
+  margin-left: 300px;
   color: #8e2b39;
 }
 
@@ -147,6 +198,80 @@ const props = defineProps({
   background-color: #C62E43;
   margin-top: 24px;
   margin-bottom: 24px;
+}
+
+
+.carousel-caption {
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  text-align: center;
+
+  color: #C62E43;
+
+}
+
+.carousel-title {
+  font-size: 2.0rem;
+  font-weight: 800;
+  color: #C62E43;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  margin-bottom: 0.3em;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.carousel-desc {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.aucun-message {
+  text-align: center;
+  color: #C62E43;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.carousel-wrapper {
+  max-width: 1000px;
+  margin: 0 auto 2rem auto;
+  box-shadow: 0 8px 32px 0 rgba(44, 44, 44, 0.40), 0 1.5px 3px 0 rgba(198, 46, 67, 0.15);
+
+
+}
+
+.custom-h2 {
+  color: #C62E43 !important;
+  font-size: 1.5rem !important;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.voir-plus-btn {
+  gap: 0.4em;
+  color: #C62E43;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+
+}
+
+.voir-plus-btn-page {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+  color: #C62E43;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+
 }
 
 </style>

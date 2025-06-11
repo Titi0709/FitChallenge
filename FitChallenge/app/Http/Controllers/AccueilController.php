@@ -16,10 +16,10 @@ class AccueilController extends Controller
         
         $defis = Defi::where('statut', 'validé')->latest()->take(5)->get();
         $programmes = Programme::latest()->take(5)->get();
-        $challenges = ParticipationDefi::with('defi') // si besoin du nom du défi
-                            ->latest()
-                            ->take(5)
-                            ->get();
+        $challenges = ParticipationDefi::with('defi')
+            ->where('id_utilisateur', Auth::id())
+            ->latest()
+            ->get();
 
         return Inertia::render('Accueil', [
             'defis' => $defis,
