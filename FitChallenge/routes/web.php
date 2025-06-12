@@ -14,13 +14,13 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.at
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::get('/defis', [DefisController::class, 'index'])->name('defis.index');
+Route::get('/Cataloguedefis', [DefisController::class, 'Cataloguedefis'])->name('catalogue.defis');
 
 
 
 Route::middleware(['auth'])->group(function () {
 
-Route::get('/PageDefis', [DefisController::class, 'PageDefis'])->name('page.defis');
+Route::get('/CreateDefi', [DefisController::class, 'CreateDefi'])->name('create.defi');
 Route::post('/defis-creation', [DefisController::class, 'defiscreation'])->name('defis.creation');
 
 });

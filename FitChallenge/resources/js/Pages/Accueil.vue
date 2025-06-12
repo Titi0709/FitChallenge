@@ -43,7 +43,7 @@ const props = defineProps({
  <!-- Derniers défis (Carrousel) -->
     <section class="mb-10">
       <h2 class="accueil-section-title text-center mb-4 custom-h2">Les défis !</h2>
-      <Link href="/defis" class="voir-plus-btn-page">
+      <Link href="/Cataloguedefis" class="voir-plus-btn-page">
       Voir plus
       <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
     </Link>
@@ -271,6 +271,7 @@ const props = defineProps({
   font-weight: 700;
   font-family: 'Poppins', sans-serif;
   text-decoration: none;
+  margin-left: 900px;
 
 }
 

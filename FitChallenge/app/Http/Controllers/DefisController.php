@@ -12,25 +12,25 @@ use App\Http\Requests\StoreDefiRequest;
 class DefisController extends Controller
 {
 
-    public function index()
+    public function Cataloguedefis()
     {
         $defis = Defi::where('statut', 'validé')->latest()->get();
 
-        return Inertia::render('Defis', [
+        return Inertia::render('Cataloguedefis', [
             'defis' => $defis,
         ]);
     }
 
-        public function PageDefis()
+        public function CreateDefi()
     {
-        return Inertia::render('PageDefis');
+        return Inertia::render('CreateDefi');
     }
 
     
     public function defiscreation(StoreDefiRequest $request)
     {   
         $validated = $request->validated();
-
+       
         $userId = Auth::id();
 
         if (!$userId) {
@@ -43,7 +43,7 @@ class DefisController extends Controller
         $imagePath = $image->store('images', 'public');
 
         $validated['image'] = $imagePath;
-
+        
         $defi = Defi::create([
             ...$validated,
             'date_creation' => now(),
@@ -51,9 +51,6 @@ class DefisController extends Controller
             'prix' => '1',
             'id_utilisateur' =>  $userId, 
         ]);
-
-        // $request->file('video') récupère le fichier uploadé (ici la vidéo)
-        // store('videos', 'public') déplace le fichier uploadé dans le dossier storage/app/public/videos.
 
             $video = $request->file('video');
             $path = $video->store('videos', 'public');

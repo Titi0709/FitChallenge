@@ -30,7 +30,7 @@ function logout() {
       style="gap: 64px;"
     >
       <Link href="/"  class="nav-link ml-n16">accueil</Link>
-      <Link href="/defis" class="nav-link ml-16">défis</Link>
+      <Link href="/Cataloguedefis" class="nav-link ml-16">défis</Link>
       <Link href="/programmes" class="nav-link ml-16">Programmes</Link>
       <Link href="/messagerie" class="nav-link ml-16">messagerie</Link>
       <Link href="/porgression"><v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;" >progression</v-btn></Link>
