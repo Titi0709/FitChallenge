@@ -1,6 +1,14 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3'
 import { Link } from "@inertiajs/vue3";
+import { ref, watch } from 'vue'
+
+
+const page = usePage()
+const showSnackbar = ref(!!page.props.flash?.success)
+const showSnackbarMessage = ref(!!page.props.flash?.message)
+const snackbar = ref(page.props.flash?.success || '')
+const snackbarMessage = ref(page.props.flash?.message || '')
 
 const props = defineProps({
   defis: Array,
@@ -9,6 +17,15 @@ const props = defineProps({
    user: Object,
 });
 
+watch(
+  () => page.props.flash?.success,
+  (val) => {
+    if (val) {
+      snackbarMessage.value = val
+      showSnackbar.value = true
+    }
+  }
+)
 </script>
 
 <template>
@@ -61,7 +78,7 @@ const props = defineProps({
           <v-img :src="`/storage/${defi.image}`" height="300px" cover>
             <div class="carousel-caption">
               <div class="carousel-title">{{ defi.titre }}</div>
-              <Link :href="`/defis/${defi.id_defi}`" class="voir-plus-btn">
+              <Link :href="`/defi/${defi.id_defi}`" class="voir-plus-btn">
               Voir le défi
               <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
             </Link>
@@ -139,6 +156,13 @@ const props = defineProps({
       </div>
       <div v-else class="aucun-message">Aucun challenge n'est présent.</div>
     </section>
+<v-snackbar v-model="showSnackbar" color="success" timeout="4000" location="top">
+  {{ snackbar }}
+</v-snackbar>
+
+<v-snackbar v-model="showSnackbarMessage" color="orange-darken-2" timeout="4000" location="top">
+  {{ snackbarMessage }}
+</v-snackbar>
   </v-container>
 </template>
 

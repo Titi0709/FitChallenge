@@ -35,7 +35,7 @@ public function login(LoginRequest $request)
 
     if ($user && Hash::check($credentials['mot_de_passe'], $user->mot_de_passe)) {
         Auth::login($user);
-        return redirect()->intended('/');
+        return redirect('/')->with('success', 'Connection réussi !');
     }
 
     return back()->withErrors([

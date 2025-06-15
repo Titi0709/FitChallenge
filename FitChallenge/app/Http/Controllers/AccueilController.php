@@ -28,4 +28,5 @@ class AccueilController extends Controller
             'user' =>$user,
         ]);
     }
+
 }

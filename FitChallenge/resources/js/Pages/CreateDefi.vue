@@ -2,8 +2,6 @@
 import { ref } from "vue";
 import { useForm } from '@inertiajs/vue3'
 
-const snackbar = ref(false)
-const snackbarMessage = ref('')
 
 const form = useForm({
   titre: '',
@@ -117,6 +115,12 @@ function submit() {
                 @change="e => form.video = e.target.files[0]"
               />
             </div>
+                <div v-if="form.image" class="mt-2" style="color:#c62e43;font-weight:600;">
+                  Image sélectionnée : {{ form.image.name }}
+                </div>
+                  <div v-if="form.video" class="mb-6" style="color:#c62e43;font-weight:600;">
+                  Vidéo sélectionnée : {{ form.video.name }}
+                </div>
 
             <v-btn
               class="text-white"
@@ -151,13 +155,7 @@ function submit() {
       </v-row>
     </v-container>
   </div>
-  <v-snackbar
-  v-model="snackbar"
-  :timeout="6000"
-  class="elevation-24"
-  color="deep-orange-accent-2">
-  {{ snackbarMessage }}
-</v-snackbar>
+
 
 </template>
 

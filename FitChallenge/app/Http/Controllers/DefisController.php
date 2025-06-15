@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Defi;
 use App\Models\VideoDefi;
+use App\Models\ParticipationDefi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -62,10 +63,57 @@ class DefisController extends Controller
             ]);
 
 
-            
-
-         return back();
-
+         
+            return redirect()->route('accueil')->with('message', 'Ton defis sera disponlibe dans les plus brefs délais après vérification du defis !');
 
     }
+
+    public function showDefi($id)
+    {
+        $defi = Defi::findOrFail($id);
+        $video = VideoDefi::where('id_defi', $defi->id_defi)->first();
+
+        return Inertia::render('Defi', [
+            'defi' => $defi,
+            'video' => $video,
+        ]);
+    }
+
+
+public function participer(Request $request)
+{
+    $request->validate([
+        'id_defi' => 'required|exists:defi,id_defi',
+    ]);
+
+    $userId = Auth::id();
+
+
+    $exists = ParticipationDefi::where('id_defi', $request->id_defi)
+        ->where('id_utilisateur', $userId)
+        ->exists();
+
+    if ($exists) {
+        
+        $defi = Defi::findOrFail($request->id_defi);
+        $video = VideoDefi::where('id_defi', $defi->id_defi)->first();
+
+        return Inertia::render('Defi', [
+            'defi' => $defi,
+            'video' => $video,
+            'error' => 'Vous participez déjà à ce défi.',
+
+        ]);
+    }
+
+    ParticipationDefi::create([
+        'date_debut' => now(),
+        'statut' => 'en cours',
+        'id_defi' => $request->id_defi,
+        'id_utilisateur' => $userId,
+    ]);
+
+    return to_route('progression.show')->with('success', 'Défi rejoint avec succès !');
+}
+
 }

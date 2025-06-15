@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <HeaderComponent />
+    <HeaderComponent :auth="auth"/>
     <v-main>
       <slot />
     </v-main>

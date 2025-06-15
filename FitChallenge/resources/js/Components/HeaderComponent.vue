@@ -1,5 +1,9 @@
 <script setup>
-import { Link,router } from '@inertiajs/vue3';
+import { Link,router,usePage } from '@inertiajs/vue3';
+
+
+
+const page = usePage()
 
 function logout() {
   router.post('/logout');
@@ -24,25 +28,32 @@ function logout() {
 
  
     <v-row
-      class="d-none d-sm-flex"
+      class="d-none d-sm-flex nav-row-gap"
       align="center"
       justify="center"
-      style="gap: 64px;"
     >
       <Link href="/"  class="nav-link ml-n16">accueil</Link>
       <Link href="/Cataloguedefis" class="nav-link ml-16">défis</Link>
       <Link href="/programmes" class="nav-link ml-16">Programmes</Link>
       <Link href="/messagerie" class="nav-link ml-16">messagerie</Link>
-      <Link href="/porgression"><v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;" >progression</v-btn></Link>
-<v-btn
-  icon
-  class="ml-4"
-  style="background: #c62e43; color: #fff;"
-  @click="logout"
-  title="Déconnexion"
->
-  <v-icon>mdi-logout</v-icon>
-</v-btn>
+      <Link href="/progression">
+        <v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;">progression</v-btn>
+      </Link>
+      <Link href="/login" v-if="!page.props.auth?.user">
+        <v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;">
+          Connexion
+        </v-btn>
+      </Link>
+      <v-btn
+        v-if="page.props.auth?.user"
+        icon
+        class="ml-4"
+        style="background: #c62e43; color: #fff;"
+        @click="logout"
+        title="Déconnexion"
+      >
+        <v-icon>mdi-logout</v-icon>
+      </v-btn>
     </v-row>
 
 
@@ -63,4 +74,24 @@ function logout() {
   text-transform: lowercase;
   text-decoration: none;
 }
+
+.nav-row-gap {
+  gap: 64px;
+  transition: gap 0.2s;
+}
+
+@media (max-width: 1300px) {
+  .nav-row-gap {
+    gap: 20px;
+  }
+
+}
+@media (max-width: 1200px) {
+  .nav-row-gap {
+    gap: 0px;
+  }
+
+}
+
+
 </style>
