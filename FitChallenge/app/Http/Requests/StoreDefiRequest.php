@@ -14,7 +14,7 @@ class StoreDefiRequest extends FormRequest
     }
 
     public function rules()
-    {   \Log::info('StoreDefiRequest appelé', ['data' => $this->all()]);
+    {  
         return [
             'titre' => 'required|string|max:50',
             'description' => 'required|string|max:500',

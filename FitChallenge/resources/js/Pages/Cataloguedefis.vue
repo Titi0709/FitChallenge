@@ -58,7 +58,7 @@ function nextPage() {
                 <div class="mt-2 defis-card-desc">
                   {{ defi.description }}
                 </div>
-                <Link :href="`/defis/${defi.id_defi}`">
+                <Link :href="`/defi/${defi.id_defi}`">
                   <v-btn class="mt-4" style="background: #c62e43; color: #fff; text-transform: none;">
                     Voir plus
                   </v-btn>
