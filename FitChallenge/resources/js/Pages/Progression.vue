@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { router,usePage } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -8,6 +8,7 @@ const props = defineProps({
 })
 
 const page = usePage()
+console.log('Page props:', page.props);
 const showSnackbar = ref(!!page.props.flash?.success)
 const snackbar = ref(page.props.flash?.success || '')
 
@@ -33,6 +34,16 @@ function handleConfirm() {
   }
   confirmDialog.value = false
 }
+
+watch(
+  () => page.props.flash?.success,
+  (val) => {
+    if (val) {
+      snackbar.value = val
+      showSnackbar.value = true
+    }
+  }
+)
 </script>
 
 <template>
@@ -66,9 +77,14 @@ function handleConfirm() {
           <div class="progression-defi-title">{{ p.defi.titre }}</div>
           <div class="progression-defi-desc">{{ p.defi.description }}</div>
           <div class="progression-btns">
-            <v-btn color="success" @click="openDialog(p.id_participation, 'valider', 'participation')">VALIDÉ</v-btn>
-            <v-btn color="error" @click="openDialog(p.id_participation, 'abandonner', 'participation')">ABANDONNER</v-btn>
-            <v-btn color="#c62e43" class="voir-plus-btn" @click="$inertia.visit(`/defi/${p.defi.id_defi}`)">Voir plus</v-btn>
+            <template v-if="p.statut === 'validé'">
+              <v-btn color="success" disabled>Ce défi est terminé</v-btn>
+            </template>
+            <template v-else>
+              <v-btn color="success" @click="openDialog(p.id_participation, 'valider', 'participation')">VALIDÉ</v-btn>
+              <v-btn color="error" @click="openDialog(p.id_participation, 'abandonner', 'participation')">ABANDONNER</v-btn>
+              <v-btn color="#c62e43" class="voir-plus-btn" @click="$inertia.visit(`/defi/${p.defi.id_defi}`)">Voir plus</v-btn>
+            </template>
           </div>
         </div>
       </div>

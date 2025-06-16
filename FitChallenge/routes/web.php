@@ -5,6 +5,7 @@ use App\Http\Controllers\AccueilController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DefisController;
 use App\Http\Controllers\ProgressionController;
+use App\Http\Controllers\ProfilController;
 
 Route::get('/', [AccueilController::class, 'index'])->name('accueil');
 
@@ -29,6 +30,10 @@ Route::post('/participation-defi', [DefisController::class, 'participer'])->name
 
 
 Route::put('/participation-defi/{id}', [ProgressionController::class, 'updateParticipation']);
-Route::delete('/participation-defi/{id}', [ProgressionController::class, 'destroyParticipation'])->name('participation-defi.destroy');
-Route::get('/progression', [ProgressionController::class, 'showprogression'])->name('progression.show');  
+Route::delete('/participation-defi/{id}', [ProgressionController::class, 'destroyParticipation'])->name('participation.destroy');
+Route::delete('/defi/{id}', [ProgressionController::class, 'destroyDefis'])->name('defi.destroy');  
+Route::get('/progression', [ProgressionController::class, 'showprogression'])->name('progression.show'); 
+
+Route::get('/profil', [ProfilController::class, 'showprofil'])->name('profil.show'); 
+
 });

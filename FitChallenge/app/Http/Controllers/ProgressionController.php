@@ -43,7 +43,14 @@ public function destroyParticipation($id)
 {
     $participation = ParticipationDefi::findOrFail($id);
     $participation->delete();
-    return back()->with('success', 'Participation abandonnée avec succès.');
+    return redirect()->route('progression.show')->with('success', 'Participation supprimée avec succès.');
+}
+
+public function destroyDefis($id)
+{
+    $defi = Defi::findOrFail($id);
+    $defi->delete();
+    return redirect()->route('progression.show')->with('success', 'Défi supprimé avec succès.');
 }
     
 }
