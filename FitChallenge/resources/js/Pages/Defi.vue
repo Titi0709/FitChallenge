@@ -29,7 +29,8 @@ watch(
 </script>
 
 <template>
-  <v-container class="defi-container" fluid>
+<div class="background">
+  <v-container class="ml-6">
     <v-row align="center" justify="start">
       <!-- Image carré -->
       <v-col cols="12" md="3" class="defi-sidebar">
@@ -48,61 +49,69 @@ watch(
       <!-- Barre verticale -->
       <v-divider vertical class="mx-6" :thickness="3" color="#c62e43" />
 
-      <!-- Infos défi -->
-      <v-col>
-        <h1 class="defi-title">{{ props.defi.titre }}</h1>
-        <div class="defi-desc mb-4">{{ props.defi.description }}</div>  
-        <!-- Vidéo miniature -->
-        <div
-          v-if="props.video"
-          class="defi-video-wrapper mt-6 mb-6"
-          @click="showVideo = true"
-        >
-          <div class="defi-video-thumb">
-            <v-icon size="48" color="#c62e43" class="defi-video-play">mdi-play-circle-outline</v-icon>
-          </div>
-        </div>
-        <div v-if="props.video" class="mt-2" style="color:#c62e43;font-weight:600;">
-          {{ props.video.titre }}
-        </div>
-        <div v-else class="mt-6 mb-6" style="color:#c62e43;">Aucune vidéo disponible</div>
+          <!-- Infos défi -->
+          <v-col>
+            <h1 class="defi-title">{{ props.defi.titre }}</h1>
+            <div class="defi-desc mb-4">{{ props.defi.description }}</div>  
+            <!-- Vidéo miniature -->
+            <div
+              v-if="props.video"
+              class="defi-video-wrapper mt-6 mb-6"
+              @click="showVideo = true"
+            >
+              <div class="defi-video-thumb">
+                <v-icon size="48" color="#c62e43" class="defi-video-play">mdi-play-circle-outline</v-icon>
+              </div>
+            </div>
+            <div v-if="props.video" class="mt-2" style="color:#c62e43;font-weight:600;">
+              {{ props.video.titre }}
+            </div>
+            <div v-else class="mt-6 mb-6" style="color:#c62e43;">Aucune vidéo disponible</div>
 
-        <!-- Bouton rejoindre -->
-        <v-btn class="defi-btn" color="#c62e43" dark @click="rejoindreDefi">
-          Rejoindre le Défi !
-        </v-btn>
-      </v-col>
-    </v-row>
+            <!-- Bouton rejoindre -->
+            <v-btn class="defi-btn" color="#c62e43" dark @click="rejoindreDefi">
+              Rejoindre le Défi !
+            </v-btn>
+          </v-col>
+        </v-row>
 
-    <!-- Modale vidéo -->
-    <v-dialog v-model="showVideo" max-width="700">
-      <v-card>
-        <v-card-title v-if="props.video" style="color:#c62e43;">
-          {{ props.video.titre }}
-        </v-card-title>
-        <video
-          v-if="props.video"
-          :src="`/storage/${props.video.url}`"
-          controls
-          autoplay
-          style="width:100%;border-radius:12px;"
-        >
-          Votre navigateur ne supporte pas la lecture vidéo.
-        </video>
-      </v-card>
-    </v-dialog>
-    <v-snackbar v-model="showSnackbarMessage" color="orange-darken-2" timeout="4000" >
-  {{ snackbar }}
-</v-snackbar>
+        <!-- Modale vidéo -->
+        <v-dialog v-model="showVideo" max-width="700">
+          <v-card>
+            <v-card-title v-if="props.video" style="color:#c62e43;">
+              {{ props.video.titre }}
+            </v-card-title>
+            <video
+              v-if="props.video"
+              :src="`/storage/${props.video.url}`"
+              controls
+              autoplay
+              style="width:100%;border-radius:12px;"
+            >
+              Votre navigateur ne supporte pas la lecture vidéo.
+            </video>
+          </v-card>
+        </v-dialog>
+        <v-snackbar v-model="showSnackbarMessage" color="orange-darken-2" timeout="4000" >
+      {{ snackbar }}
+    </v-snackbar>
   </v-container>
+  </div>
+
 </template>
 
 <style scoped>
-.defi-container {
+
+.background {
   min-height: 80vh;
-  background: #fff;
-  padding-top: 32px;
+  width: 100vw;
+  background-image: url('/images/Imadefond.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+
 .defi-img {
   width: 160px;
   height: 160px;
