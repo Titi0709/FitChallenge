@@ -39,6 +39,14 @@ function logout() {
       <Link href="/progression">
         <v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;">progression</v-btn>
       </Link>
+      <Link
+        v-if="page.props.auth?.user?.role === 'admin'"
+        href="/admin"
+      >
+        <v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;">
+          Admin
+        </v-btn>
+      </Link>
       <Link href="/login" v-if="!page.props.auth?.user">
         <v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;">
           Connexion

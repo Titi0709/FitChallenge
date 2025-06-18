@@ -1,77 +1,162 @@
+
 <script setup>
-import { ref } from 'vue'
-import { usePage } from '@inertiajs/vue3'
+import { ref, watch } from 'vue'
+import { useForm, usePage } from '@inertiajs/vue3'
 
 const page = usePage()
-const utilisateur = page.props.utilisateur
+const user = page.props.auth?.user || {}
 
-const nom = ref(utilisateur?.nom || '')
-const prenom = ref(utilisateur?.prenom || '')
-const email = ref(utilisateur?.email || '')
-const password = ref('')
+const dialog = ref(false)
+const showSnackbar = ref(false)
+const snackbar = ref('')
+
+const form = useForm({
+  old_password: '',
+  new_password: '',
+  new_password_confirmation: '',
+})
+
+function submit() {
+  form.put('/profil/update-password', {
+    onSuccess: () => {
+      dialog.value = false
+      snackbar.value = 'Mot de passe modifié avec succès !'
+      showSnackbar.value = true
+      form.reset()
+    },
+    onError: () => {
+      snackbar.value = 'Erreur lors de la modification du mot de passe.'
+      showSnackbar.value = true
+    }
+  })
+}
+
+watch(
+  () => page.props.flash?.success,
+  (val) => {
+    if (val) {
+      snackbar.value = val
+      showSnackbar.value = true
+    }
+  }
+)
 </script>
 
+
 <template>
-  <div class="profil-container">
-    <h1 class="profil-title">Info Personnel</h1>
-    <form class="profil-form">
-      <input class="profil-input" type="text" v-model="nom" placeholder="Nom" disabled />
-      <input class="profil-input" type="text" v-model="prenom" placeholder="Prenom" disabled />
-      <input class="profil-input" type="email" v-model="email" placeholder="email" disabled />
-      <div class="profil-row">
-        <input class="profil-input" type="password" v-model="password" placeholder="Mot de passe" disabled />
-        <button class="profil-btn" type="button" disabled>Modifier</button>
-      </div>
-    </form>
+  <div class="background">
+    <v-container>
+      <h1 class="profil-title">Info Personnel</h1>
+      <v-row justify="start">
+        <v-col cols="12" md="8" lg="7">
+          <v-text-field 
+            label="Nom"
+            :model-value="user.nom"
+            variant="outlined"
+            disabled
+            class="mb-4"
+          />
+          <v-text-field
+            label="Prénom"
+            :model-value="user.prenom"
+            variant="outlined"
+            disabled
+            class="mb-4"
+          />
+          <v-text-field
+            label="Email"
+            :model-value="user.email"
+            variant="outlined"
+            disabled
+            class="mb-8"
+          />
+          <v-row align="center" class="mb-8">
+            <v-col cols="10" class="pa-0">
+              <v-text-field
+                label="Mot de passe"
+                :model-value="'********'"
+                type="password"
+                variant="outlined"
+                disabled
+                class="ml-2"
+              />
+            </v-col>
+            <v-col cols="2" class="pa-0 d-flex align-center">
+              <v-btn color="#c62e43" class="ml-2 mb-4" @click="dialog = true">
+                Modifier
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <!-- Dialog de modification du mot de passe -->
+      <v-dialog v-model="dialog" max-width="400">
+        <v-card>
+          <v-card-title>Changer mon mot de passe</v-card-title>
+          <v-card-text>
+            <v-form @submit.prevent="submit">
+              <v-text-field
+                v-model="form.old_password"
+                label="Ancien mot de passe"
+                type="password"
+                variant="outlined"
+                required
+                class="mb-4"
+                :error-messages="form.errors.old_password"
+              />
+              <v-text-field
+                v-model="form.new_password"
+                label="Nouveau mot de passe"
+                type="password"
+                variant="outlined"
+                required
+                class="mb-4"
+                :error-messages="form.errors.new_password"
+              />
+              <v-text-field
+                v-model="form.new_password_confirmation"
+                label="Confirmer le nouveau mot de passe"
+                type="password"
+                variant="outlined"
+                required
+                class="mb-4"
+                :error-messages="form.errors.new_password_confirmation"
+              />
+              <v-card-actions>
+                <v-btn color="success" type="submit">Valider</v-btn>
+                <v-btn color="grey" @click="dialog = false">Annuler</v-btn>
+              </v-card-actions>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+
+      <!-- Snackbar succès -->
+      <v-snackbar v-model="showSnackbar" color="success" timeout="4000" location="top">
+        {{ snackbar }}
+      </v-snackbar>
+    </v-container>
   </div>
 </template>
 
 <style scoped>
-.profil-container {
+
+.background {
+  min-height: 80vh;
   width: 100vw;
-  min-height: 100vh;
-  background: #fff;
-  position: relative;
-  padding-top: 40px;
+  background-image: url('/images/Imadefond.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 .profil-title {
-  text-align: center;
   color: #c62e43;
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
   margin-bottom: 2rem;
-  font-family: 'Poppins', sans-serif;
-}
-.profil-form {
-  max-width: 400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.profil-input {
-  padding: 12px;
-  border-radius: 6px;
-  border: none;
-  box-shadow: 0 2px 6px #0001;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-}
-.profil-row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.profil-btn {
-  background: #c62e43;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 22px;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  cursor: not-allowed;
-  box-shadow: 0 2px 6px #0001;
+  margin-left: 1rem;
 }
 </style>
