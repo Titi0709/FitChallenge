@@ -17,18 +17,18 @@ class ProfilController extends Controller
     }
 
 
-public function updatePassword(UpdatePasswordRequest $request)
-{
-    $user = Auth::user();
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $user = Auth::user();
 
-    if (!Hash::check($request->old_password, $user->mot_de_passe)) {
-        return back()->withErrors(['old_password' => 'Ancien mot de passe incorrect.']);
+        if (!Hash::check($request->old_password, $user->mot_de_passe)) {
+            return back()->withErrors(['old_password' => 'Ancien mot de passe incorrect.']);
+        }
+
+        $user->mot_de_passe = bcrypt($request->new_password);
+
+        $user->save();
+
+        return to_route('profil.show')->with('success', 'Mot de passe modifié avec succès !');
     }
-
-    $user->mot_de_passe = bcrypt($request->new_password);
-
-    $user->save();
-
-    return to_route('profil.show')->with('success', 'Mot de passe modifié avec succès !');
-}
 }

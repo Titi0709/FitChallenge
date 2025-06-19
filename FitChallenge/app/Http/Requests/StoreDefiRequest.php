@@ -7,14 +7,14 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
 
 class StoreDefiRequest extends FormRequest
-{   
+{
     public function authorize()
     {
         return true;
     }
 
     public function rules()
-    {  
+    {
         return [
             'titre' => 'required|string|max:50',
             'description' => 'required|string|max:500',
@@ -27,7 +27,7 @@ class StoreDefiRequest extends FormRequest
     }
 
 
-        public function messages()
+    public function messages()
     {
         return [
             'titre.required' => 'Le titre est obligatoire.',
@@ -39,7 +39,4 @@ class StoreDefiRequest extends FormRequest
             'prix.required' => 'Le prix est obligatoire.',
         ];
     }
-
 }
-
-

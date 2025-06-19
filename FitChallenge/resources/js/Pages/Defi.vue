@@ -47,7 +47,7 @@ watch(
       </v-col>
 
       <!-- Barre verticale -->
-      <v-divider vertical class="mx-6" :thickness="3" color="#c62e43" />
+      <v-divider vertical class="mx-6 hide-mobile" :thickness="3" color="#c62e43" />
 
           <!-- Infos défi -->
           <v-col>
@@ -109,8 +109,32 @@ watch(
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+   overflow-x: hidden;
 }
 
+.v-container,
+.v-row,
+.v-col {
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .ml-6, .mx-6 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .defi-video-wrapper {
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
 
 .defi-img {
   width: 160px;

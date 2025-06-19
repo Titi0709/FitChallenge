@@ -61,22 +61,17 @@ function handleConfirm() {
     <v-container>
       <h1 class="progression-title">Gerer Défis</h1>
       <div v-if="paginatedDefis.length">
-        <div
-          v-for="d in paginatedDefis"
-          :key="d.id_defi"
-          class="progression-row"
-        >
-          <v-img
-            :src="`/storage/${d.image}`"
-            class="progression-img"
-          />
+        <div v-for="d in paginatedDefis" :key="d.id_defi" class="progression-row">
+          <v-img :src="`/storage/${d.image}`" class="progression-img" />
           <div class="progression-content">
             <div class="progression-defi-title">{{ d.titre }}</div>
             <div class="progression-defi-desc">{{ d.description }}</div>
             <div class="progression-btns">
-              <v-btn color="#c62e43" class="voir-plus-btn" @click="$inertia.visit(`/admin/defisadmin/${d.id_defi}`)">Voir plus</v-btn>
+              <v-btn color="#c62e43" class="voir-plus-btn"
+                @click="$inertia.visit(`/admin/defisadmin/${d.id_defi}`)">Voir plus</v-btn>
               <v-btn color="error" @click="openDialog(d.id_defi, 'supprimer')">Supprimer</v-btn>
-              <v-btn color="success" v-if="d.statut !== 'validé'" @click="openDialog(d.id_defi, 'valider')">Valider</v-btn>
+              <v-btn color="success" v-if="d.statut !== 'validé'"
+                @click="openDialog(d.id_defi, 'valider')">Valider</v-btn>
             </div>
           </div>
         </div>
@@ -114,12 +109,34 @@ function handleConfirm() {
 <style scoped>
 .background {
   min-height: 100vh;
-  width: 100vw;
-  background-image: url('/images/ImadefondAdmin.jpg');
+  width: 100%;
+  background-image: url('/images/Imadefond.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  overflow-x: hidden;
 }
+
+@media (max-width: 700px) {
+  .progression-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .progression-img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .progression-btns {
+
+    gap: 0.5rem;
+  }
+}
+
 .progression-title {
   font-size: 2.5rem;
   color: #c62e43;
@@ -128,42 +145,49 @@ function handleConfirm() {
   margin: 2rem 0;
   font-family: 'Poppins', sans-serif;
 }
+
 .progression-row {
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
   gap: 2rem;
 }
+
 .progression-img {
   max-width: 180px;
   max-height: 300px;
   object-fit: cover;
   border-radius: 12px;
-  box-shadow: 0 4px 18px 0 rgba(44,44,44,0.18);
+  box-shadow: 0 4px 18px 0 rgba(44, 44, 44, 0.18);
   background: transparent;
 }
+
 .progression-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
+
 .progression-defi-title {
   font-weight: 700;
   color: #c62e43;
   font-size: 1.2rem;
   font-family: 'Poppins', sans-serif;
 }
+
 .progression-defi-desc {
   color: #c62e43;
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5rem;
 }
+
 .progression-btns {
   display: flex;
   gap: 1rem;
   margin-top: 0.5rem;
 }
+
 .voir-plus-btn {
   color: #fff !important;
   background: #c62e43 !important;

@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, watch } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
@@ -49,37 +48,13 @@ watch(
       <h1 class="profil-title">Info Personnel</h1>
       <v-row justify="start">
         <v-col cols="12" md="8" lg="7">
-          <v-text-field 
-            label="Nom"
-            :model-value="user.nom"
-            variant="outlined"
-            disabled
-            class="mb-4"
-          />
-          <v-text-field
-            label="Prénom"
-            :model-value="user.prenom"
-            variant="outlined"
-            disabled
-            class="mb-4"
-          />
-          <v-text-field
-            label="Email"
-            :model-value="user.email"
-            variant="outlined"
-            disabled
-            class="mb-8"
-          />
+          <v-text-field label="Nom" :model-value="user.nom" variant="outlined" disabled class="mb-4" />
+          <v-text-field label="Prénom" :model-value="user.prenom" variant="outlined" disabled class="mb-4" />
+          <v-text-field label="Email" :model-value="user.email" variant="outlined" disabled class="mb-8" />
           <v-row align="center" class="mb-8">
             <v-col cols="10" class="pa-0">
-              <v-text-field
-                label="Mot de passe"
-                :model-value="'********'"
-                type="password"
-                variant="outlined"
-                disabled
-                class="ml-2"
-              />
+              <v-text-field label="Mot de passe" :model-value="'********'" type="password" variant="outlined" disabled
+                class="ml-2" />
             </v-col>
             <v-col cols="2" class="pa-0 d-flex align-center">
               <v-btn color="#c62e43" class="ml-2 mb-4" @click="dialog = true">
@@ -96,33 +71,13 @@ watch(
           <v-card-title>Changer mon mot de passe</v-card-title>
           <v-card-text>
             <v-form @submit.prevent="submit">
-              <v-text-field
-                v-model="form.old_password"
-                label="Ancien mot de passe"
-                type="password"
-                variant="outlined"
-                required
-                class="mb-4"
-                :error-messages="form.errors.old_password"
-              />
-              <v-text-field
-                v-model="form.new_password"
-                label="Nouveau mot de passe"
-                type="password"
-                variant="outlined"
-                required
-                class="mb-4"
-                :error-messages="form.errors.new_password"
-              />
-              <v-text-field
-                v-model="form.new_password_confirmation"
-                label="Confirmer le nouveau mot de passe"
-                type="password"
-                variant="outlined"
-                required
-                class="mb-4"
-                :error-messages="form.errors.new_password_confirmation"
-              />
+              <v-text-field v-model="form.old_password" label="Ancien mot de passe" type="password" variant="outlined"
+                required class="mb-4" :error-messages="form.errors.old_password" />
+              <v-text-field v-model="form.new_password" label="Nouveau mot de passe" type="password" variant="outlined"
+                required class="mb-4" :error-messages="form.errors.new_password" />
+              <v-text-field v-model="form.new_password_confirmation" label="Confirmer le nouveau mot de passe"
+                type="password" variant="outlined" required class="mb-4"
+                :error-messages="form.errors.new_password_confirmation" />
               <v-card-actions>
                 <v-btn color="success" type="submit">Valider</v-btn>
                 <v-btn color="grey" @click="dialog = false">Annuler</v-btn>
@@ -141,7 +96,6 @@ watch(
 </template>
 
 <style scoped>
-
 .background {
   min-height: 80vh;
   width: 100vw;
