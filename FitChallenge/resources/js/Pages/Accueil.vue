@@ -14,7 +14,7 @@ const props = defineProps({
   defis: Array,
   programmes: Array,
   challenges: Array,
-   user: Object,
+  user: Object,
 });
 
 watch(
@@ -32,16 +32,11 @@ watch(
   <v-container fluid class="pa-0">
     <!-- Hero Banner -->
     <div class="hero-banner mb-8">
-      <v-img
-        src="/images/Imadefond.jpg"
-        cover
-        height="400px"
-        class="hero-image"
-      />
+      <v-img src="/images/Imadefond.jpg" cover height="400px" class="hero-image" />
 
       <div class="hero-text d-flex flex-column justify-center align-center text-center px-4">
         <h1 class="hero-title">
-         Bienvenue, {{ props.user?.prenom ?? 'Champion' }}
+          Bienvenue, {{ props.user?.prenom ?? 'Champion' }}
         </h1>
         <p class="hero-subtitle">
           Prêt à relever un nouveau défi sportif aujourd'hui ?
@@ -57,71 +52,55 @@ watch(
 
 
 
- <!-- Derniers défis (Carrousel) -->
+    <!-- Derniers défis (Carrousel) -->
     <section class="mb-10">
       <h2 class="accueil-section-title text-center mb-4 custom-h2">Les défis !</h2>
       <Link href="/Cataloguedefis" class="voir-plus-btn-page">
       Voir plus
       <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
-    </Link>
+      </Link>
       <div v-if="defis.length" class="carousel-wrapper">
-      <v-carousel
-        hide-delimiter-background
-        height="300"
-        show-arrows
-        cycle
-      >
-        <v-carousel-item
-          v-for="defi in defis"
-          :key="defi.id_defi"
-        >
-          <v-img :src="`/storage/${defi.image}`" height="300px" cover>
-            <div class="carousel-caption">
-              <div class="carousel-title">{{ defi.titre }}</div>
-              <Link :href="`/defi/${defi.id_defi}`" class="voir-plus-btn">
-              Voir le défi
-              <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
-            </Link>
-            </div>
-          </v-img>
-        </v-carousel-item>
-      </v-carousel>
+        <v-carousel hide-delimiter-background height="300" show-arrows cycle>
+          <v-carousel-item v-for="defi in defis" :key="defi.id_defi">
+            <v-img :src="`/storage/${defi.image}`" height="300px" cover>
+              <div class="carousel-caption">
+                <div class="carousel-title">{{ defi.titre }}</div>
+                <Link :href="`/defi/${defi.id_defi}`" class="voir-plus-btn">
+                Voir le défi
+                <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+                </Link>
+              </div>
+            </v-img>
+          </v-carousel-item>
+        </v-carousel>
       </div>
       <div v-else class="aucun-message">Aucun défi n'est présent.</div>
     </section>
 
     <!-- Derniers programmes (Carrousel) -->
     <section class="mb-10">
-      <h2 class="accueil-section-title text-center mb-4 custom-h2" >Les programmes !</h2>
+      <h2 class="accueil-section-title text-center mb-4 custom-h2">Les programmes !</h2>
       <Link href="/programmes" class="voir-plus-btn-page">
       Voir plus
       <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
-    </Link>
+      </Link>
       <div v-if="programmes.length" class="carousel-wrapper">
-      <v-carousel
-        hide-delimiter-background
-        height="300"
-        show-arrows
-        cycle
-      >
-        <v-carousel-item
-          v-for="programme in programmes"
-          :key="programme.id_programme"
-        >
-          <v-img :src="programme.image" height="300px" cover>
-            <div class="carousel-caption">
-              <div class="carousel-title">{{ programme.titre }}</div>
-              <Link :href="`/programmes/${programme.id_programme}`" class="voir-plus-btn">
-              Voir le programme
-              <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
-            </Link>
-            </div>
-          </v-img>
-        </v-carousel-item>
-      </v-carousel>
+        <v-carousel hide-delimiter-background height="300" show-arrows cycle>
+          <v-carousel-item v-for="programme in programmes" :key="programme.id_programme">
+            <v-img :src="programme.image" height="300px" cover>
+              <div class="carousel-caption">
+                <div class="carousel-title">{{ programme.titre }}</div>
+                <Link :href="`/programmes/${programme.id_programme}`" class="voir-plus-btn">
+                Voir le programme
+                <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+                </Link>
+              </div>
+            </v-img>
+          </v-carousel-item>
+        </v-carousel>
       </div>
       <div v-else class="aucun-message">Aucun programme n'est présent.</div>
-      
+
     </section>
 
     <!-- Derniers challenges (Carrousel) -->
@@ -130,39 +109,31 @@ watch(
       <Link href="/progression" class="voir-plus-btn-page">
       Voir plus
       <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
-    </Link>
-       <div v-if="challenges.length" class="carousel-wrapper">
-      <v-carousel
-        hide-delimiter-background
-        height="300"
-        show-arrows
-        cycle
-      >
-        <v-carousel-item
-          v-for="challenge in challenges"
-          :key="challenge.id_participation"
-        >
-          <v-img :src="`/storage/${challenge.defi?.image}`" height="300px" cover>
-            <div class="carousel-caption">
-              <div class="carousel-title">{{ challenge.defi?.titre }}</div>
-              <Link href="/progression" class="voir-plus-btn">
-              Voir le challenge
-              <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
-            </Link>
-            </div>
-          </v-img>
-        </v-carousel-item>
-      </v-carousel>
+      </Link>
+      <div v-if="challenges.length" class="carousel-wrapper">
+        <v-carousel hide-delimiter-background height="300" show-arrows cycle>
+          <v-carousel-item v-for="challenge in challenges" :key="challenge.id_participation">
+            <v-img :src="`/storage/${challenge.defi?.image}`" height="300px" cover>
+              <div class="carousel-caption">
+                <div class="carousel-title">{{ challenge.defi?.titre }}</div>
+                <Link href="/progression" class="voir-plus-btn">
+                Voir le challenge
+                <v-icon size="18" class="ml-1">mdi-arrow-right</v-icon>
+                </Link>
+              </div>
+            </v-img>
+          </v-carousel-item>
+        </v-carousel>
       </div>
       <div v-else class="aucun-message">Aucun challenge n'est présent.</div>
     </section>
-<v-snackbar v-model="showSnackbar" color="success" timeout="4000" location="top">
-  {{ snackbar }}
-</v-snackbar>
+    <v-snackbar v-model="showSnackbar" color="success" timeout="4000" location="top">
+      {{ snackbar }}
+    </v-snackbar>
 
-<v-snackbar v-model="showSnackbarMessage" color="orange-darken-2" timeout="4000" location="top">
-  {{ snackbarMessage }}
-</v-snackbar>
+    <v-snackbar v-model="showSnackbarMessage" color="orange-darken-2" timeout="4000" location="top">
+      {{ snackbarMessage }}
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -192,15 +163,24 @@ watch(
 
 .hero-title {
   font-size: 3rem;
-  font-weight: 900; /* Extra bold */
-  
+  font-weight: 900;
+  /* Extra bold */
+
   color: #C62E43;
 }
 
 .hero-subtitle {
   font-size: 2rem;
-  margin-left: 300px;
   color: #8e2b39;
+  margin-left: 0;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .hero-subtitle {
+    margin-left: 300px;
+    text-align: left;
+  }
 }
 
 .section-title-container {
@@ -277,17 +257,16 @@ watch(
   font-family: 'Poppins', sans-serif;
 }
 
-.voir-plus-btn {
-  gap: 0.4em;
-  color: #C62E43;
-  font-weight: 700;
-  font-family: 'Poppins', sans-serif;
-  text-decoration: none;
-
+.red-underline {
+  height: 2px;
+  width: 120px;
+  max-width: 90vw;
+  background-color: #C62E43;
+  margin: 24px auto;
 }
 
 .voir-plus-btn-page {
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.4em;
@@ -295,8 +274,15 @@ watch(
   font-weight: 700;
   font-family: 'Poppins', sans-serif;
   text-decoration: none;
-  margin-left: 900px;
-
+  margin-left: 0;
+  margin-bottom: 1rem;
 }
 
+@media (min-width: 900px) {
+  .voir-plus-btn-page {
+    justify-content: flex-end;
+    margin-left: 0;
+    margin-right: 2rem;
+  }
+}
 </style>

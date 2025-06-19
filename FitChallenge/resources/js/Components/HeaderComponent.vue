@@ -30,7 +30,7 @@ function logout() {
         src="/images/LogoFitChallenge.png"
         alt="Logo"
         height="60"
-        
+        class="= mr-n15 ml-15"
         contain
       />
     </div>

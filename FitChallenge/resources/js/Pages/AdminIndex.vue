@@ -36,6 +36,7 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .admin-title {
   color: #c62e43;
   font-size: 2.5rem;
@@ -45,9 +46,11 @@
   margin-top: 2rem;
   text-align: center;
 }
+
 .admin-cards-row {
   margin-top: 2rem;
 }
+
 .admin-card {
   background: #fff;
   border-radius: 16px;
@@ -55,13 +58,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 18px 0 rgba(44,44,44,0.10);
+  box-shadow: 0 4px 18px 0 rgba(44, 44, 44, 0.10);
   cursor: pointer;
   transition: box-shadow 0.2s;
 }
+
 .admin-card:hover {
-  box-shadow: 0 8px 24px 0 rgba(198,46,67,0.18);
+  box-shadow: 0 8px 24px 0 rgba(198, 46, 67, 0.18);
 }
+
 .admin-card-text {
   color: #c62e43;
   font-size: 1.2rem;

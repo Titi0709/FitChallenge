@@ -91,6 +91,11 @@ function nextPage() {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  overflow-x: hidden; /* Empêche le scroll horizontal */
+}
+
+body {
+  overflow-x: hidden;
 }
 
 .defis-poppins {
@@ -140,5 +145,21 @@ function nextPage() {
   object-fit: cover;
 
   box-shadow: 0 4px 18px 0 rgba(44,44,44,0.18), 0 1.5px 3px 0 rgba(198,46,67,0.12);
+}
+
+@media (max-width: 600px) {
+  .d-flex.align-center.mb-8.mt-8 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+  .defis-title {
+    margin-left: 0 !important;
+    text-align: left;
+    font-size: 2rem;
+  }
+  .ml-10 {
+    margin-left: 0 !important;
+  }
 }
 </style>

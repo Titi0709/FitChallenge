@@ -24,14 +24,16 @@
   align-items: center;
   justify-content: center;
 }
+
 .en-travaux-container {
   background: #fff;
   border-radius: 24px;
-  box-shadow: 0 4px 24px 0 rgba(44,44,44,0.10);
+  box-shadow: 0 4px 24px 0 rgba(44, 44, 44, 0.10);
   padding: 48px 32px;
   text-align: center;
   max-width: 420px;
 }
+
 .en-travaux-title {
   color: #c62e43;
   font-size: 2.5rem;
@@ -39,6 +41,7 @@
   font-family: 'Poppins', sans-serif;
   margin-bottom: 1.5rem;
 }
+
 .en-travaux-message {
   color: #c62e43;
   font-size: 1.2rem;

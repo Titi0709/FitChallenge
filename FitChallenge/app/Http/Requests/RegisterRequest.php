@@ -35,7 +35,7 @@ class RegisterRequest extends FormRequest
             'mot_de_passe' => ['required', 'min:6', 'confirmed'],
         ];
     }
-        public function messages()
+    public function messages()
     {
         return [
             'nom.regex' => 'Le nom ne doit contenir que des lettres et des espaces.',
@@ -44,5 +44,3 @@ class RegisterRequest extends FormRequest
         ];
     }
 }
-
-

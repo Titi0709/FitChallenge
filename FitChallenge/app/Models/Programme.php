@@ -10,7 +10,16 @@ class Programme extends Model
     protected $primaryKey = 'id_programme';
 
     protected $fillable = [
-        'titre', 'description', 'type_exercice', 'objectif', 'duree', 'image', 'date_creation', 'prix','id_utilisateur','statut',
+        'titre',
+        'description',
+        'type_exercice',
+        'objectif',
+        'duree',
+        'image',
+        'date_creation',
+        'prix',
+        'id_utilisateur',
+        'statut',
     ];
 
     public function videos()
@@ -27,8 +36,8 @@ class Programme extends Model
     {
         return $this->hasMany(Achat::class, 'id_programme');
     }
-        public function utilisateur()
+    public function utilisateur()
     {
-    return $this->belongsTo(Utilisateur::class, 'id_utilisateur');
+        return $this->belongsTo(Utilisateur::class, 'id_utilisateur');
     }
 }
