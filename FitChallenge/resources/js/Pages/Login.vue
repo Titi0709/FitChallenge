@@ -8,14 +8,14 @@ const form = useForm({
 });
 
 
-// Snackbar state
+
 const snackbar = ref(false);
 const snackbarColor = ref("success");
 const snackbarText = ref("");
 
 
 function submit() {
-    form.post("/login", {
+    form.post("/connexion", {
         onFinish: () => {
 
             snackbarText.value = "Identifiants invalides.";
@@ -71,7 +71,7 @@ function submit() {
 
                         <div class="mt-6 text-body-2" style="color: #888">
                             Première connection ?
-                            <Link href="/register" style="
+                            <Link href="/inscription" style="
                                     color: #c62e43;
                                     font-weight: 500;
                                     margin-left: 4px;

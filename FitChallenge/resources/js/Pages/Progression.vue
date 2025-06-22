@@ -14,16 +14,14 @@ const snackbar = ref(page.props.flash?.success || '')
 const confirmDialog = ref(false)
 const dialogAction = ref('')
 const selectedId = ref(null)
-const selectedType = ref('') // 'participation' ou 'defi'
+const selectedType = ref('')
 
-// Pagination pour participations
 const pagePart = ref(1)
 const perPagePart = 3
 const paginatedPart = computed(() => props.participations.slice(0, pagePart.value * perPagePart))
 const hasMorePart = computed(() => pagePart.value * perPagePart < props.participations.length)
 function nextPagePart() { pagePart.value++ }
 
-// Pagination pour mesDéfis
 const pageDefis = ref(1)
 const perPageDefis = 3
 const paginatedDefis = computed(() => props.mesDefis.slice(0, pageDefis.value * perPageDefis))
@@ -41,9 +39,9 @@ function handleConfirm() {
   if (dialogAction.value === 'supprimer' && selectedType.value === 'defi') {
     router.delete(`/defi/${selectedId.value}`)
   } else if (dialogAction.value === 'valider') {
-    router.put(`/participation-defi/${selectedId.value}`, { statut: 'validé' })
+    router.put(`/participation/${selectedId.value}`, { statut: 'validé' })
   } else if (dialogAction.value === 'abandonner' && selectedType.value === 'participation') {
-    router.delete(`/participation-defi/${selectedId.value}`)
+    router.delete(`/participation/${selectedId.value}`)
   }
   confirmDialog.value = false
 }
@@ -62,7 +60,6 @@ watch(
 <template>
   <div class="background">
     <v-container>
-      <!-- Titre et bouton profil -->
       <div class="d-flex align-center justify-center mb-8 mt-8" style="position: relative;">
         <h1 class="progression-title">Progression</h1>
         <v-btn class="profil-btn" color="#c62e43" dark @click="$inertia.visit('/profil')">
@@ -70,7 +67,6 @@ watch(
         </v-btn>
       </div>
 
-      <!-- Ma progression -->
       <h2 class="section-title">Ma progression :</h2>
       <div v-if="paginatedPart.length">
         <div v-for="p in paginatedPart" :key="p.id_participation" class="progression-row">
@@ -101,7 +97,6 @@ watch(
       </div>
       <div v-else>Aucune progression en cours.</div>
 
-      <!-- Mes défis -->
       <h2 class="section-title">Mes Défis :</h2>
       <div v-if="paginatedDefis.length">
         <div v-for="d in paginatedDefis" :key="d.id_defi" class="progression-row">
@@ -124,7 +119,6 @@ watch(
       </div>
       <div v-else>Tu n'as pas encore créé de défi.</div>
 
-      <!-- Dialog de confirmation -->
       <v-dialog v-model="confirmDialog" persistent max-width="400">
         <v-card>
           <v-card-title>
@@ -151,12 +145,13 @@ watch(
 
 <style scoped>
 .background {
-
+  min-height: 100vh;
+  width: 100vw;
   background-image: url('/images/Imadefond.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  overflow-x: auto;
 }
 
 .progression-title {
@@ -219,6 +214,15 @@ watch(
   color: #c62e43;
   font-family: 'Poppins', sans-serif;
   margin-bottom: 0.5rem;
+  max-width: 180px;
+  word-break: break-word;
+  white-space: normal;
+}
+
+@media (max-width: 1200px) {
+  .progression-defi-desc {
+    max-width: 100%;
+  }
 }
 
 .progression-btns {
@@ -233,5 +237,27 @@ watch(
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   text-transform: none;
+}
+
+/* Responsive : même logique que admin défiss */
+@media (max-width: 700px) {
+  .progression-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .progression-img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .progression-btns {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .progression-content {
+    align-items: flex-start;
+  }
 }
 </style>

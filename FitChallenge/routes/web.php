@@ -12,11 +12,11 @@ use Inertia\Inertia;
 Route::get('/', [AccueilController::class, 'index'])->name('accueil');
 
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.attempt');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/connexion', [AuthController::class, 'afficherConnexion'])->name('connexion');
+Route::post('/connexion', [AuthController::class, 'connexion'])->name('connexion.tentative');
+Route::get('/inscription', [AuthController::class, 'afficherInscription'])->name('inscription');
+Route::post('/inscription', [AuthController::class, 'inscription'])->name('inscription.tentative');
+Route::post('/deconnexion', [AuthController::class, 'deconnexion'])->name('deconnexion');
 
 
 Route::get('/Cataloguedefis', [DefisController::class, 'Cataloguedefis'])->name('catalogue.defis');
@@ -30,24 +30,23 @@ Route::fallback(
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/CreateDefi', [DefisController::class, 'CreateDefi'])->name('create.defi');
-    Route::post('/defis-creation', [DefisController::class, 'defiscreation'])->name('defis.creation');
-    Route::get('/defi/{id}', [DefisController::class, 'showDefi'])->name('defi.show');
-    Route::post('/participation-defi', [DefisController::class, 'participer'])->name('defi.participer');
+    Route::get('/creation-defi', [DefisController::class, 'creationDefi'])->name('defis.creation.afficher');
+    Route::post('/defis', [DefisController::class, 'creerDefi'])->name('defis.creation');
+    Route::get('/defi/{id}', [DefisController::class, 'afficherDefi'])->name('defis.afficher');
+    Route::post('/defi/{id}/participer', [DefisController::class, 'participerDefi'])->name('defis.participer');
 
+    Route::put('/participation/{id}', [ProgressionController::class, 'modifierParticipation']);
+    Route::delete('/participation/{id}', [ProgressionController::class, 'supprimerParticipation'])->name('participation.supprimer');
+    Route::delete('/defi/{id}', [ProgressionController::class, 'supprimerDefi'])->name('defis.supprimer');
+    Route::get('/progression', [ProgressionController::class, 'afficherProgression'])->name('progression.afficher');
 
-    Route::put('/participation-defi/{id}', [ProgressionController::class, 'updateParticipation']);
-    Route::delete('/participation-defi/{id}', [ProgressionController::class, 'destroyParticipation'])->name('participation.destroy');
-    Route::delete('/defi/{id}', [ProgressionController::class, 'destroyDefis'])->name('defi.destroy');
-    Route::get('/progression', [ProgressionController::class, 'showprogression'])->name('progression.show');
+    Route::get('/profil', [ProfilController::class, 'afficherProfil'])->name('profil.afficher');
+    Route::put('/profil/mot-de-passe', [ProfilController::class, 'modifierMotDePasse'])->name('profil.motdepasse');
 
-    Route::get('/profil', [ProfilController::class, 'showprofil'])->name('profil.show');
-    Route::put('/profil/update-password', [ProfilController::class, 'updatePassword'])->name('profil.update-password');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.accueil');
+    Route::get('/admin/defis', [AdminController::class, 'listeDefis'])->name('admin.defis');
+    Route::get('/admin/defi/{id}', [AdminController::class, 'afficherDefi'])->name('admin.defis.afficher');
 
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('/admin/defi', [AdminController::class, 'defis'])->name('admin.defis');
-    Route::get('/admin/defisadmin/{id}', [AdminController::class, 'showDefi'])->name('admin.defisadmin');
-    // Actions
-    Route::delete('/admin/defi/{id}', [AdminController::class, 'deleteDefi'])->name('admin.defi.delete');
-    Route::put('/admin/defi/{id}/valider', [AdminController::class, 'validerDefi'])->name('admin.defi.valider');
+    Route::delete('/admin/defi/{id}', [AdminController::class, 'supprimerDefi'])->name('admin.defis.supprimer');
+    Route::put('/admin/defi/{id}/valider', [AdminController::class, 'validerDefi'])->name('admin.defis.valider');
 });

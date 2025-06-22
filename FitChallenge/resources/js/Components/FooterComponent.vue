@@ -4,7 +4,7 @@
     color="white"
     app
   >
-    <!-- Mobile : logo et texte à droite -->
+
     <div class="d-flex d-sm-none align-center justify-end w-100">
       <v-img
         src="/images/LogoFitChallenge.png"
@@ -16,7 +16,7 @@
       <span class="footer-text-mobile mr-5">&copy; 2025 FitChallenge</span>
     </div>
 
-    <!-- Desktop : logo à gauche, texte à droite -->
+
     <v-img
       src="/images/LogoFitChallenge.png"
       alt="Logo"

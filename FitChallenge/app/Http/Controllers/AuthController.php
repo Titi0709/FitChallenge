@@ -15,19 +15,19 @@ class AuthController extends Controller
 
 {
 
-    public function showLogin()
+    public function afficherConnexion()
     {
         return Inertia::render('Login');
     }
 
 
-    public function showRegister()
+    public function afficherInscription()
     {
         return Inertia::render('Register');
     }
 
 
-    public function login(LoginRequest $request)
+    public function connexion(LoginRequest $request)
     {
         $credentials = $request->validated();
 
@@ -45,7 +45,7 @@ class AuthController extends Controller
 
 
 
-    public function register(RegisterRequest $request)
+    public function inscription(RegisterRequest $request)
     {
         $validated = $request->validated();
 
@@ -64,11 +64,11 @@ class AuthController extends Controller
     }
 
 
-    public function logout(Request $request)
+    public function deconnexion(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/connexion');
     }
 }

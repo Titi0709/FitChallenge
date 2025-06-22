@@ -6,36 +6,33 @@ const drawer = ref(false)
 const page = usePage()
 
 function logout() {
-  router.post('/logout');
+  router.post('/deconnexion');
 }
 </script>
 
 <template>
-  <v-app-bar
-    flat
-    color="white"
-    class="header-bar"
-    height="90"
-  >
-    <!-- Mobile : menu burger à gauche, logo à droite -->
-    <div class="d-flex d-md-none align-center justify-space-between w-100">
-      <v-app-bar-nav-icon
-        class="ml-7"
-        @click="drawer = !drawer"
-        
-      >
-        <v-icon size="36" color="#c62e43">mdi-menu</v-icon>
-      </v-app-bar-nav-icon>
-      <v-img
-        src="/images/LogoFitChallenge.png"
-        alt="Logo"
-        height="60"
-        class="= mr-n15 ml-15"
-        contain
-      />
-    </div>
+    <v-app-bar
+      flat
+      color="white"
+      class="header-bar w-100"
+      height="90"
+    >
+      <div class="d-flex d-md-none align-center w-100">
+        <v-app-bar-nav-icon
+          class="ml-7"
+          @click="drawer = !drawer"
+        >
+          <v-icon size="36" color="#c62e43">mdi-menu</v-icon>
+        </v-app-bar-nav-icon>
+        <v-spacer />
+        <v-img
+          src="/images/LogoFitChallenge.png"
+          alt="Logo"
+          height="60"
+          contain
+        />
+      </div>
 
-    <!-- Desktop : logo à gauche, liens au centre -->
     <v-img
       src="/images/LogoFitChallenge.png"
       alt="Logo"
@@ -44,19 +41,20 @@ function logout() {
       contain
     />
 
+
     <v-row
-      class="d-none d-sm-flex nav-row-gap"
+      class="d-none d-md-flex nav-row-gap"
       align="center"
       justify="center"
     >
       <Link href="/" class="nav-link ml-n16">accueil</Link>
-      <Link href="/Cataloguedefis" class="nav-link ml-16">défis</Link>
-      <Link href="/programmes" class="nav-link ml-16">Programmes</Link>
-      <Link href="/messagerie" class="nav-link ml-16">messagerie</Link>
-      <Link href="/progression">
+      <Link href="/Cataloguedefis" class="nav-link ml-8">défis</Link>
+      <Link href="/programmes" class="nav-link ml-8">Programmes</Link>
+      <Link href="/messagerie" class="nav-link ml-8">messagerie</Link>
+      <Link href="/progression" class="nav-link ml-n8">
         <v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;">progression</v-btn>
       </Link>
-      <Link
+      <Link  class="nav-link ml-n8"
         v-if="page.props.auth?.user?.role === 'admin'"
         href="/admin"
       >
@@ -64,15 +62,14 @@ function logout() {
           Admin
         </v-btn>
       </Link>
-      <Link href="/login" v-if="!page.props.auth?.user">
+      <Link href="/connexion"  class="nav-link ml-n8" v-if="!page.props.auth?.user" >
         <v-btn class="text-white mr-4 ml-15" style="background: #c62e43; text-transform: none;">
           Connexion
         </v-btn>
       </Link>
-      <v-btn
+      <v-btn 
         v-if="page.props.auth?.user"
         icon
-        class="ml-4"
         style="background: #c62e43; color: #fff;"
         @click="logout"
         title="Déconnexion"
@@ -82,7 +79,7 @@ function logout() {
     </v-row>
   </v-app-bar>
 
-  <!-- Drawer pour mobile -->
+
   <v-navigation-drawer
     v-model="drawer"
     temporary

@@ -14,7 +14,6 @@ const showVideo = ref(false)
   <div class="background">
     <v-container class="ml-6">
       <v-row align="center" justify="start">
-        <!-- Image carré -->
         <v-col cols="12" md="3" class="defi-sidebar">
           <v-img :src="`/storage/${props.defi.image}`" class="defi-sidebar-img mb-4" />
           <div class="defi-info">
@@ -25,14 +24,14 @@ const showVideo = ref(false)
           </div>
         </v-col>
 
-        <!-- Barre verticale -->
+
         <v-divider vertical class="mx-6" :thickness="3" color="#c62e43" />
 
-        <!-- Infos défi -->
+
         <v-col>
           <h1 class="defi-title">{{ props.defi.titre }}</h1>
           <div class="defi-desc mb-4">{{ props.defi.description }}</div>
-          <!-- Vidéo miniature -->
+
           <div v-if="props.video" class="defi-video-wrapper mt-6 mb-6" @click="showVideo = true">
             <div class="defi-video-thumb">
               <v-icon size="48" color="#c62e43" class="defi-video-play">mdi-play-circle-outline</v-icon>
@@ -43,12 +42,12 @@ const showVideo = ref(false)
           </div>
           <div v-else class="mt-6 mb-6" style="color:#c62e43;">Aucune vidéo disponible</div>
         </v-col>
-        <v-btn color="#c62e43" style="color: #fff; text-transform: none;" @click="$inertia.visit('/admin/defi')">
+        <v-btn color="#c62e43" style="color: #fff; text-transform: none;" @click="$inertia.visit('/admin/defis')">
           Retour
         </v-btn>
       </v-row>
 
-      <!-- Modale vidéo -->
+
       <v-dialog v-model="showVideo" max-width="700">
         <v-card>
           <v-card-title v-if="props.video" style="color:#c62e43;">

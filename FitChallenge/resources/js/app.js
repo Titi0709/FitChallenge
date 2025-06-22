@@ -1,6 +1,5 @@
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import vuetify from './vuetify';
 import AppLayout from './Layouts/AppLayout.vue';
 
@@ -9,7 +8,7 @@ createInertiaApp({
     const pages = import.meta.glob('./Pages/**/*.vue');
     const page = (await pages[`./Pages/${name}.vue`]()).default;
 
-    // Ajoute le layout sauf pour Login et Register
+
     if (!['Login', 'Register'].includes(name)) {
       page.layout = AppLayout;
     }
