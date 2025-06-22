@@ -8,7 +8,7 @@
       <h1 class="admin-title">Gerer compte</h1>
       <v-row class="admin-cards-row" justify="center">
         <v-col cols="12" md="4">
-          <v-card class="admin-card" @click="$inertia.visit('/admin/defi')">
+          <v-card class="admin-card" @click="$inertia.visit('/admin/defis')">
             <div class="admin-card-text">Gerer defi</div>
           </v-card>
         </v-col>

@@ -22,13 +22,13 @@ class DefisController extends Controller
         ]);
     }
 
-    public function CreateDefi()
+    public function creationDefi()
     {
-        return Inertia::render('CreateDefi');
+        return Inertia::render('CreationDefi');
     }
 
 
-    public function defiscreation(StoreDefiRequest $request)
+    public function creerDefi(StoreDefiRequest $request)
     {
         $validated = $request->validated();
 
@@ -67,7 +67,7 @@ class DefisController extends Controller
         return redirect()->route('accueil')->with('message', 'Ton defis sera disponlibe dans les plus brefs délais après vérification du defis !');
     }
 
-    public function showDefi($id)
+    public function afficherDefi($id)
     {
         $defi = Defi::findOrFail($id);
         $video = VideoDefi::where('id_defi', $defi->id_defi)->first();
@@ -79,7 +79,7 @@ class DefisController extends Controller
     }
 
 
-    public function participer(Request $request)
+    public function participerDefi(Request $request)
     {
         $request->validate([
             'id_defi' => 'required|exists:defi,id_defi',
@@ -112,6 +112,6 @@ class DefisController extends Controller
             'id_utilisateur' => $userId,
         ]);
 
-        return to_route('progression.show')->with('success', 'Défi rejoint avec succès !');
+        return to_route('progression.afficher')->with('success', 'Défi rejoint avec succès !');
     }
 }

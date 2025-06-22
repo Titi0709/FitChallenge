@@ -11,13 +11,13 @@ use Inertia\Inertia;
 
 class ProfilController extends Controller
 {
-    public function showProfil()
+    public function afficherProfil()
     {
         return Inertia::render('Profil');
     }
 
 
-    public function updatePassword(UpdatePasswordRequest $request)
+    public function modifierMotDePasse(UpdatePasswordRequest $request)
     {
         $user = Auth::user();
 
@@ -29,6 +29,6 @@ class ProfilController extends Controller
 
         $user->save();
 
-        return to_route('profil.show')->with('success', 'Mot de passe modifié avec succès !');
+        return to_route('profil.afficher')->with('success', 'Mot de passe modifié avec succès !');
     }
 }

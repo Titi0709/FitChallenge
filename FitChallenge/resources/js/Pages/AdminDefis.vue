@@ -68,7 +68,7 @@ function handleConfirm() {
             <div class="progression-defi-desc">{{ d.description }}</div>
             <div class="progression-btns">
               <v-btn color="#c62e43" class="voir-plus-btn"
-                @click="$inertia.visit(`/admin/defisadmin/${d.id_defi}`)">Voir plus</v-btn>
+                @click="$inertia.visit(`/admin/defi/${d.id_defi}`)">Voir plus</v-btn>
               <v-btn color="error" @click="openDialog(d.id_defi, 'supprimer')">Supprimer</v-btn>
               <v-btn color="success" v-if="d.statut !== 'validé'"
                 @click="openDialog(d.id_defi, 'valider')">Valider</v-btn>
@@ -83,7 +83,7 @@ function handleConfirm() {
       </div>
       <div v-else>Aucun défi à gérer.</div>
 
-      <!-- Dialog de confirmation -->
+
       <v-dialog v-model="confirmDialog" persistent max-width="400">
         <v-card>
           <v-card-title>

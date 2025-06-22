@@ -25,19 +25,18 @@ function nextPage() {
 <template>
   <div class="defis-background">
     <v-container fluid class="pa-0 defis-poppins">
-      <!-- Titre principal et bouton -->
+
       <div class="d-flex align-center mb-8 mt-8">
         <h1 class="defis-title ml-16">
           Les Derniers Défis Sortis !
         </h1>
-        <Link href="/CreateDefi">
+        <Link href="/creation-defi">
           <v-btn class="text-white ml-10" style="background: #c62e43; text-transform: none;">
             Créer un Défi !
           </v-btn>
         </Link>
       </div>
 
-      <!-- Liste paginée des défis -->
       <v-row>
         <template v-for="(defi, i) in paginatedDefis" :key="defi.id_defi">
           <v-col cols="12" class="mb-0">
@@ -66,12 +65,11 @@ function nextPage() {
               </div>
             </v-card>
           </v-col>
-          <!-- Séparateur sauf après le dernier élément affiché -->
+
           <v-divider v-if="i < paginatedDefis.length - 1" class="my-6" />
         </template>
       </v-row>
 
-      <!-- Bouton voir plus -->
       <div v-if="hasMore" class="d-flex justify-center mt-8">
         <v-btn @click="nextPage" style="background: #c62e43; color: #fff; text-transform: none;">
           Voir plus de défis
@@ -91,7 +89,7 @@ function nextPage() {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  overflow-x: hidden; /* Empêche le scroll horizontal */
+  overflow-x: hidden; 
 }
 
 body {

@@ -12,16 +12,16 @@ use App\Models\ParticipationDefi;
 class ProgressionController extends Controller
 {
 
-    public function showprogression()
+    public function afficherProgression()
     {
         $userId = Auth::id();
 
-        // Défis où l'utilisateur participe
+
         $participations = ParticipationDefi::with('defi')
             ->where('id_utilisateur', $userId)
             ->get();
 
-        // Défis créés par l'utilisateur
+
         $mesDefis = Defi::where('id_utilisateur', $userId)->get();
 
         return Inertia::render('Progression', [
@@ -31,7 +31,7 @@ class ProgressionController extends Controller
     }
 
 
-    public function updateParticipation(Request $request, $id)
+    public function modifierParticipation(Request $request, $id)
     {
         $participation = ParticipationDefi::findOrFail($id);
         $participation->statut = $request->statut;
@@ -39,17 +39,17 @@ class ProgressionController extends Controller
         return back()->with('success', 'Statut mis à jour !');
     }
 
-    public function destroyParticipation($id)
+    public function supprimerParticipation($id)
     {
         $participation = ParticipationDefi::findOrFail($id);
         $participation->delete();
-        return redirect()->route('progression.show')->with('success', 'Participation supprimée avec succès.');
+        return redirect()->route('progression.afficher')->with('success', 'Participation supprimée avec succès.');
     }
 
-    public function destroyDefis($id)
+    public function supprimerDefi($id)
     {
         $defi = Defi::findOrFail($id);
         $defi->delete();
-        return redirect()->route('progression.show')->with('success', 'Défi supprimé avec succès.');
+        return redirect()->route('progression.afficher')->with('success', 'Défi supprimé avec succès.');
     }
 }

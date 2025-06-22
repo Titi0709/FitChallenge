@@ -16,7 +16,7 @@ const form = useForm({
 })
 
 function submit() {
-  form.put('/profil/update-password', {
+  form.put('/profil/mot-de-passe', {
     onSuccess: () => {
       dialog.value = false
       snackbar.value = 'Mot de passe modifié avec succès !'
@@ -57,7 +57,7 @@ watch(
                 class="ml-2" />
             </v-col>
             <v-col cols="2" class="pa-0 d-flex align-center">
-              <v-btn color="#c62e43" class="ml-2 mb-4" @click="dialog = true">
+              <v-btn color="#c62e43" class=" mb-4" @click="dialog = true">
                 Modifier
               </v-btn>
             </v-col>
@@ -65,7 +65,7 @@ watch(
         </v-col>
       </v-row>
 
-      <!-- Dialog de modification du mot de passe -->
+
       <v-dialog v-model="dialog" max-width="400">
         <v-card>
           <v-card-title>Changer mon mot de passe</v-card-title>
@@ -87,7 +87,7 @@ watch(
         </v-card>
       </v-dialog>
 
-      <!-- Snackbar succès -->
+
       <v-snackbar v-model="showSnackbar" color="success" timeout="4000" location="top">
         {{ snackbar }}
       </v-snackbar>

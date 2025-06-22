@@ -30,7 +30,6 @@ watch(
 
 <template>
   <v-container fluid class="pa-0">
-    <!-- Hero Banner -->
     <div class="hero-banner mb-8">
       <v-img src="/images/Imadefond.jpg" cover height="400px" class="hero-image" />
 
@@ -44,7 +43,7 @@ watch(
       </div>
     </div>
 
-    <!-- Titre "Dernière sortie" -->
+
     <div class="section-title-container">
       <h2 class="section-title">Dernière sortie</h2>
       <div class="red-underline"></div>
@@ -52,7 +51,7 @@ watch(
 
 
 
-    <!-- Derniers défis (Carrousel) -->
+
     <section class="mb-10">
       <h2 class="accueil-section-title text-center mb-4 custom-h2">Les défis !</h2>
       <Link href="/Cataloguedefis" class="voir-plus-btn-page">
@@ -103,7 +102,7 @@ watch(
 
     </section>
 
-    <!-- Derniers challenges (Carrousel) -->
+
     <section>
       <h2 class="accueil-section-title text-center mb-4 custom-h2">Mes Challenges !</h2>
       <Link href="/progression" class="voir-plus-btn-page">
@@ -164,7 +163,6 @@ watch(
 .hero-title {
   font-size: 3rem;
   font-weight: 900;
-  /* Extra bold */
 
   color: #C62E43;
 }
@@ -276,6 +274,19 @@ watch(
   text-decoration: none;
   margin-left: 0;
   margin-bottom: 1rem;
+}
+
+.voir-plus-btn {
+  color: #a81f33 ;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+}
+.voir-plus-btn:hover {
+  background: #a81f33;
+  box-shadow: 0 4px 16px 0 rgba(198,46,67,0.18);
+  transform: translateY(-2px) scale(1.04);
+  color: #fff;
 }
 
 @media (min-width: 900px) {

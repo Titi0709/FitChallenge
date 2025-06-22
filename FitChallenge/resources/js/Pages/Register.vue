@@ -15,7 +15,7 @@ const snackbarColor = ref("success");
 const snackbarText = ref("");
 
 function submit() {
-    form.post("/register", {
+    form.post("/inscription", {
         onFinish: () => {
             snackbarText.value = "Erreur lors de l'inscription.";
             snackbarColor.value = "error";
@@ -69,7 +69,7 @@ function submit() {
 
                             <div class="mt-4 text-body-2" style="color: #888">
                                 Déjà un compte ?
-                                <Link href="/login" method="get">
+                                <Link href="/connexion" method="get">
                                 <v-btn variant="text"
                                     style="color: #c62e43; font-weight: 500; margin-left: 4px; text-transform: none;">
                                     Connexion

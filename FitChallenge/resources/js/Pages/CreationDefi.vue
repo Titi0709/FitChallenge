@@ -22,7 +22,7 @@ function resetForm() {
 }
 
 function submit() {
-  form.post('/defis-creation', {
+  form.post('/defis', {
 
     forceFormData: true,
     onSuccess: () => {
@@ -148,9 +148,9 @@ body {
 
 @media (max-width: 600px) {
   .d-flex.mb-6 {
-    flex-direction: column !important;
+    flex-direction: column ;
     gap: 1rem;
-    align-items: stretch !important;
+    align-items: stretch ;
   }
 }
 
@@ -160,7 +160,7 @@ body {
   max-width: 100%;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   .champ-defi {
     min-width: 700px;
     width: 700px;
@@ -179,4 +179,5 @@ body {
     max-width: 100%;
   }
 }
+
 </style>
