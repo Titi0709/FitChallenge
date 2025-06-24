@@ -12,7 +12,7 @@ use Inertia\Inertia;
 Route::get('/', [AccueilController::class, 'index'])->name('accueil');
 
 
-Route::get('/connexion', [AuthController::class, 'afficherConnexion'])->name('connexion');
+Route::get('/connexion', [AuthController::class, 'afficherConnexion'])->name('login');
 Route::post('/connexion', [AuthController::class, 'connexion'])->name('connexion.tentative');
 Route::get('/inscription', [AuthController::class, 'afficherInscription'])->name('inscription');
 Route::post('/inscription', [AuthController::class, 'inscription'])->name('inscription.tentative');
