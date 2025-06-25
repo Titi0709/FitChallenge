@@ -54,8 +54,8 @@ function submit() {
                                 autocomplete="current-password" required variant="outlined" density="comfortable"
                                 max-width="400" />
                             <v-row>
-                                <v-col cols="8" class="d-flex justify-end mb-4 negative-mt">
-                                    <span class="text-body-2" style="color: #888; cursor: pointer">
+                                <v-col cols="8" class="d-flex justify-end mb-4 negative-mt forgot-password-col">
+                                    <span class="text-body-2 forgot-password-mobile" style="color: #888; cursor: pointer">
                                         Mot de passe oublié ?
                                     </span>
                                 </v-col>
@@ -111,5 +111,15 @@ body,
     min-width: 120px;
     min-height: 45px;
     border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .forgot-password-mobile {
+    margin-left: 5px;
+    display: inline-block;
+  }
+  .forgot-password-col {
+    justify-content: flex-start !important;
+  }
 }
 </style>
