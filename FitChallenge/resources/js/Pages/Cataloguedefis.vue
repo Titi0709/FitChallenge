@@ -160,4 +160,13 @@ body {
     margin-left: 0 !important;
   }
 }
+
+@media (max-width: 600px) {
+  .defis-card-desc {
+    max-width: 100%;
+    word-break: break-word;
+    white-space: normal;
+   overflow-wrap: break-word;
+  }
+}
 </style>
