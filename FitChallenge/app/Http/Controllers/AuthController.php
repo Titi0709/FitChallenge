@@ -29,15 +29,17 @@ class AuthController extends Controller
 
     public function connexion(LoginRequest $request)
     {
+         // Vérif des identifiants
         $credentials = $request->validated();
 
         $user = Utilisateur::where('email', $credentials['email'])->first();
 
         if ($user && Hash::check($credentials['mot_de_passe'], $user->mot_de_passe)) {
+            // Connexion si OK
             Auth::login($user);
             return redirect('/')->with('success', 'Connection réussi !');
         }
-
+         // Sinon erreur
         return back()->withErrors([
             'email' => 'Identifiants invalides.',
         ])->onlyInput('email');
@@ -45,10 +47,13 @@ class AuthController extends Controller
 
 
 
-    public function inscription(RegisterRequest $request)
-    {
+public function inscription(RegisterRequest $request)
+{
+    try {
         $validated = $request->validated();
 
+        // throw new \Exception('Erreur forcée pour test');
+        
         $user = Utilisateur::create([
             'nom' => $validated['nom'],
             'prenom' => $validated['prenom'],
@@ -61,7 +66,15 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect('/')->with('success', 'Bienvenue dans la team !');
+
+    } catch (\Exception ) {
+
+
+        return back()->with('message', 'Une erreur est survenue pendant l’inscription. Veuillez réessayer plus tard.');
+
     }
+}
+
 
 
     public function deconnexion(Request $request)

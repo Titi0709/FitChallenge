@@ -62,6 +62,11 @@ watch(
               </v-btn>
             </v-col>
           </v-row>
+                      <v-divider class="my-6"></v-divider>
+<v-card-text class="text-caption" style="color: #888;">
+  Pour toute demande de modification ou suppression de vos données personnelles, contactez 
+  <a href="mailto:thibault.lefay.pro@gmail.com" style="color:#c62e43;">thibault.lefay.pro@gmail.com</a>
+</v-card-text>
         </v-col>
       </v-row>
 
@@ -84,6 +89,7 @@ watch(
               </v-card-actions>
             </v-form>
           </v-card-text>
+          
         </v-card>
       </v-dialog>
 

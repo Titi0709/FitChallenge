@@ -28,7 +28,8 @@ Route::fallback(
     }
 );
 
-Route::middleware(['auth'])->group(function () {
+    // Vérif uti connecté avant accés routes
+    Route::middleware(['auth'])->group(function () {
 
     Route::get('/creation-defi', [DefisController::class, 'creationDefi'])->name('defis.creation.afficher');
     Route::post('/defis', [DefisController::class, 'creerDefi'])->name('defis.creation');

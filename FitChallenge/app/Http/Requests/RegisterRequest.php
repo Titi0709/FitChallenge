@@ -33,6 +33,7 @@ class RegisterRequest extends FormRequest
                 'unique:utilisateur,email',
             ],
             'mot_de_passe' => ['required', 'min:6', 'confirmed'],
+            'rgpd'         => ['accepted'],
         ];
     }
     public function messages()
