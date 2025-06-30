@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable; // au lieu de Model
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Utilisateur extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable;  
+    use HasFactory;
+
 
     protected $table = 'utilisateur';
     protected $primaryKey = 'id_utilisateur';

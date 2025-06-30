@@ -8,11 +8,16 @@ const form = useForm({
     email: "",
     mot_de_passe: "",
     mot_de_passe_confirmation: "",
+     rgpd: false
 });
 
 const snackbar = ref(false);
 const snackbarColor = ref("success");
 const snackbarText = ref("");
+const dialogRGPD = ref(false)
+const page = usePage();
+const snackbarMessage = ref('');
+const showSnackbar = ref(false);
 
 function submit() {
     form.post("/inscription", {
@@ -23,6 +28,16 @@ function submit() {
         },
     });
 }
+
+watch(
+  () => page.props.flash?.message,
+  (val) => {
+    if (val) {
+      snackbarMessage.value = val;
+      showSnackbar.value = true;
+    }
+  }
+);
 </script>
 
 <template>
@@ -61,6 +76,19 @@ function submit() {
                                 <v-text-field v-model="form.mot_de_passe_confirmation" label="Confirmation Mot de passe"
                                     type="password" :error-messages="form.errors.mot_de_passe_confirmation"
                                     variant="outlined" density="comfortable" required max-width="400" />
+                                <v-checkbox
+                                v-model="form.rgpd"
+                                :error-messages="form.errors.rgpd"
+                                required
+                                >
+                                <template #label>
+                                    <span>
+                                    J'accepte les 
+                                    <a href="#" @click.prevent="dialogRGPD = true">conditions d'utilisation et la politique de confidentialité (RGPD)</a>
+                                    </span>
+                                </template>
+                                </v-checkbox>
+
                                 <v-btn type="submit" class="custom-btn"
                                     style="background: #19506b; color: #fff; text-transform: none;" block>
                                     Inscription
@@ -85,6 +113,31 @@ function submit() {
                 <v-snackbar v-model="snackbar" :color="snackbarColor" timeout="3000">
                     {{ snackbarText }}
                 </v-snackbar>
+
+                <v-snackbar v-model="showSnackbar" color="error" timeout="4000">
+                     {{ snackbarMessage }}
+                </v-snackbar>
+
+
+            <v-dialog v-model="dialogRGPD" max-width="600">
+            <v-card>
+                <v-card-title class="text-h6 font-weight-bold">Politique RGPD</v-card-title>
+                <v-card-text>
+                <p>
+                    Nous collectons uniquement les données nécessaires à votre inscription (nom, prénom, email).<br />
+                    Les données sont stockées de manière sécurisée et utilisées uniquement dans le cadre de FitChallenge.<br />
+                    Vous pouvez demander la suppression de vos données à tout moment via votre profil.<br />
+                    Aucune donnée n’est revendue à des tiers. <br />
+                    FitChallenge respecte le Règlement Général sur la Protection des Données (RGPD).
+                </p>
+                </v-card-text>
+                <v-card-actions>
+                <v-spacer />
+                <v-btn color="primary" text @click="dialogRGPD = false">Fermer</v-btn>
+                </v-card-actions>
+            </v-card>
+            </v-dialog>
+
             </v-container>
         </v-main>
     </v-app>

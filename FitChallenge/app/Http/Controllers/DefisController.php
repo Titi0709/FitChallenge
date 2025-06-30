@@ -40,6 +40,7 @@ class DefisController extends Controller
 
         $imagePath = null;
 
+        // Stock l'image
         $image = $request->file('image');
         $imagePath = $image->store('images', 'public');
 
@@ -53,6 +54,7 @@ class DefisController extends Controller
             'id_utilisateur' =>  $userId,
         ]);
 
+        // Stock la vidéo liée au défi
         $video = $request->file('video');
         $path = $video->store('videos', 'public');
 
