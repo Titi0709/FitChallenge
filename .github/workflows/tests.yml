@@ -45,22 +45,21 @@ jobs:
 
       - name: 🔁 Configuration de l'environnement
         run: |
-          rm .env
-          cp .env.example .env
           echo "DB_CONNECTION=mysql" >> .env
           echo "DB_HOST=127.0.0.1" >> .env
           echo "DB_DATABASE=test" >> .env
           echo "DB_USERNAME=root" >> .env
           echo "DB_PASSWORD=root" >> .env
           php artisan key:generate
-          php artisan config:clear
-          php artisan cache:clear
-          php artisan view:clear
-
-
 
       - name: 🛠️ Lancer les migrations
         run: php artisan migrate --force
+
+      - name: 🔄 Nettoyer les caches (après migrations)
+        run: |
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan view:clear
 
       - name: ✅ Lancer les tests
         run: php artisan test
