@@ -4,7 +4,7 @@
 USER=azureuser              
 HOST=98.66.215.189           
 DEST=/var/www/fitchallenge   
-KEY=~/Downloads/fitchallenge-key.pem
+KEY=id_rsa
 
 echo "Début du déploiement sur Azure ($HOST)..."
 
