@@ -22,7 +22,8 @@ class StoreDefiRequest extends FormRequest
             'objectif' => 'required|string|max:100',
             'duree' => 'required|integer',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120', // max 5 Mo
-            'video' => 'required|file|mimes:mp4,avi,mov|max:51200', // max 50 Mo
+            'video' => 'required|file|mimes:mp4,avi,mov|max:122880', // 120 Mo
+
         ];
     }
 

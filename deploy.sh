@@ -26,7 +26,7 @@ cd /var/www/fitchallenge
 npm install
 npm run build
 
-# 3. Créer le fichier .env si absent
+# 3. Créer le fichier .env si absent  
 if [ ! -f .env ]; then
     cp .env.example .env
 
@@ -51,6 +51,9 @@ php artisan view:cache
 
 # 8. Droits d'accès
 chmod -R 775 storage bootstrap/cache
+
+# 9. Redémarrer Apache (au cas où)
+sudo systemctl restart apache2
 
 echo "✅ Déploiement terminé sur la VM"
 EOF
