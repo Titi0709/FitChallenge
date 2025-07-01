@@ -58,7 +58,6 @@ jobs:
       - name: 🔄 Nettoyer les caches (après migrations)
         run: |
           php artisan config:clear
-          php artisan cache:clear
           php artisan view:clear
 
       - name: ✅ Lancer les tests
