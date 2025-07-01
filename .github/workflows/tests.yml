@@ -50,6 +50,7 @@ jobs:
           echo "DB_DATABASE=test" >> .env
           echo "DB_USERNAME=root" >> .env
           echo "DB_PASSWORD=root" >> .env
+          echo "SESSION_DRIVER=file" >> .env
           php artisan key:generate
 
       - name: 🛠️ Lancer les migrations
