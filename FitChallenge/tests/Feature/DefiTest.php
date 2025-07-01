@@ -20,8 +20,6 @@ public function test_defi_creation_via_factory(): void
 
     $defi = Defi::factory()->create();
 
-     dd($defi);
-
     $this->assertDatabaseHas('defi', [
         'id_defi' => $defi->id_defi,
     ]);
