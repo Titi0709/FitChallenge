@@ -109,7 +109,7 @@ function logout() {
         </Link>
       </v-list-item>
       <v-list-item v-if="!page.props.auth?.user">
-        <Link href="/login" @click="drawer = false">
+        <Link href="/connexion" @click="drawer = false">
           <v-btn class="text-white" style="background: #c62e43; text-transform: none;">Connexion</v-btn>
         </Link>
       </v-list-item>
