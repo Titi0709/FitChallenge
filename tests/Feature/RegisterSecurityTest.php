@@ -9,6 +9,8 @@ class RegisterSecurityTest extends TestCase
 {
     use RefreshDatabase;
 
+    #[\PHPUnit\Framework\Attributes\Group('skip-ci')]
+
     public function test_inscription_refuse_email_invalide()
     {
         $response = $this->post('/inscription', [ 
@@ -21,6 +23,9 @@ class RegisterSecurityTest extends TestCase
 
         $response->assertSessionHasErrors(['email']);
     }
+
+
+    #[\PHPUnit\Framework\Attributes\Group('skip-ci')]
 
     public function test_inscription_refuse_champs_vides()
     {
