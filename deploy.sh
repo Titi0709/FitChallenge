@@ -45,6 +45,8 @@ php artisan key:generate
 # 6. Migrer la base
 php artisan migrate --force
 
+php artisan storage:link
+
 # 7. Optimisations
 php artisan config:cache
 php artisan view:cache
