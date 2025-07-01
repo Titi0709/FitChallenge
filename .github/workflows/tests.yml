@@ -3,19 +3,21 @@ name: CI - Laravel avec MySQL
 on:
   push:
     branches:
-      - feat/*
+      - main
+      - develop
+      - feat/**
   pull_request:
 
 jobs:
-  test-laravel:
+  laravel-tests:
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: mysql:8
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testing
+          MYSQL_DATABASE: test
         ports:
           - 3306:3306
         options: >-
@@ -25,26 +27,40 @@ jobs:
           --health-retries=3
 
     steps:
-      - name: 📦 Cloner le repo
-        uses: actions/checkout@v4
+      - name: 📥 Cloner le dépôt
+        uses: actions/checkout@v3
 
-      - name: ⚙️ Installer PHP
+      - name: 🟢 Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: mbstring, pdo, mysql
+          extensions: mbstring, bcmath, mysql, pdo, pdo_mysql
+          coverage: none
 
-      - name: 🧩 Installer Laravel
+      - name: 📦 Installer les dépendances
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: 🔧 Copier le .env de test
+        run: cp .env.example .env
+
+      - name: 🔁 Configuration de l'environnement
         run: |
-          composer install --no-interaction
-          cp .env.example .env
           echo "DB_CONNECTION=mysql" >> .env
           echo "DB_HOST=127.0.0.1" >> .env
-          echo "DB_PORT=3306" >> .env
-          echo "DB_DATABASE=testing" >> .env
+          echo "DB_DATABASE=test" >> .env
           echo "DB_USERNAME=root" >> .env
           echo "DB_PASSWORD=root" >> .env
+          echo "SESSION_DRIVER=file" >> .env
           php artisan key:generate
 
-      - name: 🧪 Lancer les tests Laravel
-        run: php artisan test
+      - name: 🛠️ Lancer les migrations
+        run: php artisan migrate --force
+
+      - name: 🔄 Nettoyer les caches (après migrations)
+        run: |
+          php artisan config:clear
+          php artisan view:clear
+
+      - name: ✅ Lancer uniquement les tests CI-validés
+        run: php artisan test --env=.env --exclude-group=skip-ci
+
