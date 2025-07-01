@@ -23,6 +23,9 @@ sudo systemctl start mysql
 # 2. Aller dans le dossier projet
 cd /var/www/fitchallenge
 
+npm install
+npm run build
+
 # 3. Créer le fichier .env si absent
 if [ ! -f .env ]; then
     cp .env.example .env
