@@ -49,10 +49,12 @@ jobs:
           php artisan config:clear
           php artisan cache:clear
           php artisan view:clear
+          echo "DB_CONNECTION=mysql" >> .env
           echo "DB_HOST=127.0.0.1" >> .env
           echo "DB_DATABASE=test" >> .env
           echo "DB_USERNAME=root" >> .env
           echo "DB_PASSWORD=root" >> .env
+
 
       - name: 🛠️ Lancer les migrations
         run: php artisan migrate --force
