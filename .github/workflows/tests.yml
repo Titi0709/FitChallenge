@@ -61,5 +61,6 @@ jobs:
           php artisan config:clear
           php artisan view:clear
 
-      - name: ✅ Lancer les tests
-        run: php artisan test --env=.env --exclude=tests/Feature/RegisterSecurityTest.php --exclude=tests/Feature/ExampleTest.php
+      - name: ✅ Lancer uniquement les tests CI-validés
+        run: php artisan test --env=.env --exclude-group=skip-ci
+
