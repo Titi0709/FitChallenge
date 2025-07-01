@@ -1,0 +1,50 @@
+name: CI - Laravel avec MySQL
+
+on:
+  push:
+    branches:
+      - feat/*
+  pull_request:
+
+jobs:
+  test-laravel:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testing
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: 📦 Cloner le repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Installer PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo, mysql
+
+      - name: 🧩 Installer Laravel
+        run: |
+          composer install --no-interaction
+          cp .env.example .env
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=127.0.0.1" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=testing" >> .env
+          echo "DB_USERNAME=root" >> .env
+          echo "DB_PASSWORD=root" >> .env
+          php artisan key:generate
+
+      - name: 🧪 Lancer les tests Laravel
+        run: php artisan test
